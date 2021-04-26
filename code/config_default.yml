@@ -1,0 +1,71 @@
+
+# MODEL PARAMETERS
+name: default
+train_seed: 1
+real_data: True
+device: cuda
+maxlen_action: 25
+maxlen_time: 20
+split_trainvalid: 0.95
+t_testsplit: 5
+
+# DATA PREPROC PARAMETERS
+load_previous_checkpoint: False
+earliest_checkpoint: 1599756027000
+load_data_from_preproc_job: agg-bandit-dataset
+lookback: 30
+include_stream: False
+subsample_noClick: 0.1
+data_dir: "../data"
+min_user_clicks: 10
+min_item_clicks: 5
+drop_category: False
+
+### MODEL SETTINGS ###
+item_dim: 25
+hidden_dim: 25
+user_model_module: gru
+#user_model_module_first_round: linear
+item_model_module: hier
+dist: l2
+user_init_module: 'normal' # should initial user state be user dependent or global?
+h0_amort: True
+h0_amort_decayfactor: 4.0
+
+remove_item_group: False
+# priors
+prior_temperature: 1.0 # scales the prior in posterior
+likelihood_temperature: 0.01 # scales the likelihood in posterior
+prior_softmax_mult_scale: 0
+prior_groupvec_scale: 5.0
+prior_groupscale_scale: 5.0
+prior_userinit_scale: 0.5
+prior_bias_scale: 1.0
+
+#RNN priors
+prior_rnn_scale: 5.0
+#VI constraints
+guide_maxscale: 10.0
+guide_maxval: 10.0
+
+# TRAINING PARAMETERS
+freeze_item_parameters: False
+freeze_gru_parameters: True
+max_freeze_toggles: 1
+
+max_data_evals: 1600
+max_epochs : 100
+clip_norm: 100
+num_particles: 4
+start_true: False
+batch_size: 30000
+learning_rate: 0.0003
+patience_toggle: 25
+beta1: 0.1
+beta2: 0.1
+#force_first_toggle_epoch:  # By setting this to none the toggle will happen on half of max epochs.
+stopping_criteria: valid/loss
+## Production parameters
+
+# temperature of the latent variable h_0 (empty means 0)
+h0_temperature: 
