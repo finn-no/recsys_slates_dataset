@@ -9,8 +9,8 @@ import pyro.distributions as dist
 import models
 import numpy as np
 logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
-import prepare
-from prepare import SequentialDataset
+import dataset
+from dataset import SequentialDataset
 import pyrotrainer as pyrotrainer
 import os
 import random
@@ -38,7 +38,7 @@ def load_data(t_end=None, **kwargs):
         logging.info("Loading real data")
         sim = None
         print(param['data_dir'])
-        ind2val, itemattr, dataloaders = prepare.load_dataloaders(
+        ind2val, itemattr, dataloaders = dataset.load_dataloaders(
                 data_dir=param['data_dir'],
                 batch_size=param['batch_size'],
                 split_trainvalid=param['split_trainvalid'],
