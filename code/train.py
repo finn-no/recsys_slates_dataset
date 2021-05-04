@@ -32,8 +32,6 @@ def load_data(**kwargs):
             data_dir=param['data_dir'],
             batch_size=param['batch_size'],
             split_trainvalid=param['split_trainvalid'],
-            num_workers=0,
-            override_candidate_sampler="actual",
             t_testsplit = param['t_testsplit'],
             sample_uniform_action = param.get('sample_uniform_action', False)
             )

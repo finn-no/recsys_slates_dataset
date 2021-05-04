@@ -49,8 +49,6 @@ class SequentialDataset(Dataset):
 def load_dataloaders(data_dir,
                      batch_size=1024,
                      split_trainvalid=0.95,
-                     num_workers=0,
-                     override_candidate_sampler=None,
                      t_testsplit = 5,
                      sample_uniform_action=False):
 
