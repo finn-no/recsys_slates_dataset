@@ -25,5 +25,20 @@ The data file is compressed, unzip by the following command: `gunzip -c data.pt.
 2. Clone the repository
 3. The data file is compressed, unzip by the following command: `gunzip -c data.pt.gz >data.pt`
 
-## Quickstart [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
+## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb).
+
+
+## Citations
+If you use either the code, data or paper, please consider citing the paper.
+
+```
+@article{eide2021dynamic,
+      title={Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling}, 
+      author={Simen Eide and David S. Leslie and Arnoldo Frigessi},
+      year={2021},
+      eprint={2104.15046},
+      archivePrefix={arXiv},
+      primaryClass={stat.ML}
+}
+```
