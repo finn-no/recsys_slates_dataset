@@ -2,7 +2,6 @@
 # MODEL PARAMETERS
 name: default
 train_seed: 1
-real_data: True
 device: cuda
 maxlen_action: 25
 maxlen_time: 20
@@ -10,16 +9,8 @@ split_trainvalid: 0.95
 t_testsplit: 5
 
 # DATA PREPROC PARAMETERS
-load_previous_checkpoint: False
-earliest_checkpoint: 1599756027000
-load_data_from_preproc_job: agg-bandit-dataset
-lookback: 30
-include_stream: False
 subsample_noClick: 0.1
 data_dir: "../data"
-min_user_clicks: 10
-min_item_clicks: 5
-drop_category: False
 
 ### MODEL SETTINGS ###
 item_dim: 25
@@ -57,7 +48,6 @@ max_data_evals: 1600
 max_epochs : 100
 clip_norm: 100
 num_particles: 4
-start_true: False
 batch_size: 30000
 learning_rate: 0.0003
 patience_toggle: 25

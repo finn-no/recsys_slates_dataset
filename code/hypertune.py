@@ -3,7 +3,6 @@ INSTALLATION FROM PYTORCH IMAGE:
 pip install ax-platform
 """
 #%%
-import bayesrec.train
 # Configs deviating from default:
 configs = {
     'gru-hier' : {
@@ -38,7 +37,7 @@ configs = {
 
 import logging
 logging.basicConfig(format='%(asctime)s %(message)s', level='INFO') #removes all training logging from output
-from bayesrec.train import *
+from train import *
 from ax.plot.contour import plot_contour
 from ax.service.ax_client import AxClient
 from ax.utils.notebook.plotting import render #, init_notebook_plotting
