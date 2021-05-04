@@ -1,6 +1,6 @@
 # FINN.no Recommender Systems Slate Dataset
 This repository accompany the paper *"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"* by Simen Eide, David S. Leslie and Arnoldo Frigessi.
-The article is under review, and the pre-print can be obtained on [INSERT LINK WHEN AVAILABLE]().
+The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
 
 The repository is split into the dataset (`data/`) and the accompanying code for the paper (`code/`).
 
