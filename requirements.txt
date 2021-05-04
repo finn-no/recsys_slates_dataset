@@ -1,0 +1,13 @@
+pyro_ppl==1.3.1
+requests==2.25.1
+numpy==1.19.5
+matplotlib==3.3.4
+gpustat==0.6.0
+names==0.3.0
+pandas==1.0.5
+torch==1.6.0
+seaborn==0.11.0
+ax==0.52.0
+plotly==4.14.3
+pyro==3.16
+PyYAML==5.4.1
