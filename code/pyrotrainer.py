@@ -1,11 +1,7 @@
 import torch
-import bayesrec.utils as utils
 import matplotlib.pyplot as plt
 import pyro
 import logging
-import torch
-from torch.nn import functional as F
-import pyro.distributions as dist
 import os
 from torch.utils.tensorboard import SummaryWriter
 logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
@@ -569,32 +565,6 @@ class AlternateTrainingScheduleCheckpoint:
         logging.info(f"Loading latest checkpoint from {self.path}.. (+ clearing param store first)")
         pyro.clear_param_store()
         pyro.get_param_store().load(self.path)
-
-
-class PlotFinnAdsRecommended:
-    def __init__(self, ind2val, epoch_interval=10):
-        import FINNPlot
-        self.ind2val = ind2val
-        self.idx = 12
-        self.num_recs=5
-        self.num_time=10
-        self.epoch_interval = epoch_interval
-
-    def __call__(self,trainer, phase, **kwargs):
-        for idx in [self.idx, self.idx+1]:
-            if (phase == "train") & (trainer.epoch % self.epoch_interval == 0):
-                import FINNPlot
-                smallbatch = {key: val[idx].unsqueeze(0).to(trainer.device).long() for key, val in trainer.dataloaders['train'].dataset.data.items()}
-                M = torch.zeros(self.num_recs+1, self.num_time)
-                M[0,:] = smallbatch['click'].flatten()[:self.num_time] # add view to first row
-                guide = lambda *args, **kwargs: trainer.guide(*args, **kwargs, temp=0)
-                for t_rec in range(self.num_time):
-                    M[1:, t_rec] = trainer.model.recommend(smallbatch, par= guide, num_rec=self.num_recs, t_rec=t_rec)
-
-                nrow = M.size()[1]
-                finnkoder = [self.ind2val['itemId'][r.item()] for r in M.flatten()]
-                img_tensor=FINNPlot.add_image_line(finnkoder, nrow=nrow)
-                trainer.writer.add_image(f"recs_{idx}",img_tensor=img_tensor, global_step=trainer.step)        
 
 #%%
 
