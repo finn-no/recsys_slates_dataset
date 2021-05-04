@@ -5,7 +5,7 @@ train_seed: 1
 device: cuda
 maxlen_action: 25
 maxlen_time: 20
-split_trainvalid: 0.95
+split_trainvalid: 0.9
 t_testsplit: 5
 
 # DATA PREPROC PARAMETERS

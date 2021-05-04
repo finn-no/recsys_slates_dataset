@@ -48,7 +48,7 @@ class SequentialDataset(Dataset):
 #%% PREPARE DATA IN TRAINING
 def load_dataloaders(data_dir,
                      batch_size=1024,
-                     split_trainvalid=0.95,
+                     split_trainvalid=0.90,
                      t_testsplit = 5,
                      sample_uniform_action=False):
 
@@ -59,8 +59,8 @@ def load_dataloaders(data_dir,
     with open(f'{data_dir}/ind2val.pickle', 'rb') as handle:
         ind2val = pickle.load(handle)
 
-    num_validusers = int(len(dataset) * (1-split_trainvalid))
-    num_testusers = int(len(dataset) * (1-split_trainvalid))
+    num_validusers = int(len(dataset) * (1-split_trainvalid)/2)
+    num_testusers = int(len(dataset) * (1-split_trainvalid)/2)
     torch.manual_seed(0)
     num_users = len(dataset)
     perm_user = torch.randperm(num_users)
