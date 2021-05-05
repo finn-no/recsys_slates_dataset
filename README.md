@@ -26,11 +26,12 @@ For questions, email simen.eide@finn.no or file an issue.
 The data file is compressed, unzip by the following command: `gunzip -c data.pt.gz >data.pt`
 
 1. Install git-lfs: This repository uses `git-lfs` to store the dataset. Therefore you need the git-lfs package in addition to github. See [https://git-lfs.github.com/] for installation instructions.
+(e.g. for apt-get `sudo apt-get install git-lfs`)
 2. Clone the repository
 3. The data file is compressed, unzip by the following command: `gunzip -c data.pt.gz >data.pt`
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
-We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb).
+We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 
 
 ## Citations
