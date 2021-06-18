@@ -47,3 +47,14 @@ If you use either the code, data or paper, please consider citing the paper.
       primaryClass={stat.ML}
 }
 ```
+
+# Todo
+There are some limitations on the repository today that we would like to improve:
+
+- Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data
+- Create a pip package for easier installation and usage
+- Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.
+- Distribute the data on other platforms such as kaggle
+
+As the current state is in early stage, it makes sense to allow the above changes non-backward compatible. 
+However, this should be completed within the next couple of months.
