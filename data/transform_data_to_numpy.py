@@ -21,7 +21,7 @@ data_np = {key : data_pt[key].numpy() for key in transform_directly}
 # Transform the displayed items with name changes of the fields:
 data_np['slate_lengths'] = data_pt['lengths'].numpy()
 data_np['slate'] = data_pt['action'].numpy()
-data_np['slate_type'] = data_pt['displayType'].numpy()
+data_np['interaction_type'] = data_pt['displayType'].numpy()
 
 # Save the interaction data with compresed numpy directly:
 np.savez_compressed('data', **data_np)
@@ -29,13 +29,13 @@ np.savez_compressed('data', **data_np)
 # %% Transform the index file (ind2val):
 # userId and itemId transforms are scrambled and is not useful for any purpose. 
 # Remove these to reduce data size.
-# Also we have renamed "displayType" to "slate_type" in data, so do same here.
+# Also we have renamed "displayType" to "interaction_type" in data, so do same here.
 
 ind2val_old = pickle.load(open("ind2val.pickle", "rb"))
 
 ind2val_new = {
     'category' : ind2val_old['category'],
-    'slate_type' : ind2val_old['displayType']
+    'interaction_type' : ind2val_old['displayType']
 }
 import json
 with open('ind2val.json', 'w') as json_file:
