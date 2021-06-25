@@ -56,7 +56,11 @@ def load_dataloaders(data_dir,
     dataset = SequentialDataset(data, sample_uniform_slate)
     
     with open(f'{data_dir}/ind2val.json', 'rb') as handle:
-        ind2val = json.load(handle)
+        # Use string2int object_hook found here: https://stackoverflow.com/a/54112705
+        ind2val = json.load(
+            handle, 
+            object_hook=lambda d: {int(k) if k.lstrip('-').isdigit() else k: v for k, v in d.items()}
+            )
 
     num_validusers = int(len(dataset) * (1-split_trainvalid)/2)
     num_testusers = int(len(dataset) * (1-split_trainvalid)/2)
