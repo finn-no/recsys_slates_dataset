@@ -11,9 +11,9 @@ def download_data_files(data_dir : str = "data", overwrite=False):
         'itemattr.npz' : '1rKKyMQZqWp8vQ-Pl1SeHrQxzc5dXldnR'
     }
     for filename, gdrive_id in gdrive_file_ids.items():
-        logging.info(f"Downloading {filename}")
+        logging.info("Downloading {}".format(filename))
         gdd.download_file_from_google_drive(file_id=gdrive_id,
-                                        dest_path=f"{data_dir}/{filename}",
+                                        dest_path="{}/{}".format(data_dir, filename),
                                         overwrite=overwrite)
     logging.info("Done downloading all files.")
     return True
