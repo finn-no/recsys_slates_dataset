@@ -11,3 +11,4 @@ ax==0.52.0
 plotly==4.14.3
 pyro==3.16
 PyYAML==5.4.1
+googledrivedownloader==0.4
