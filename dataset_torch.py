@@ -46,10 +46,11 @@ class SequentialDataset(Dataset):
 #%% PREPARE DATA IN TRAINING
 def load_dataloaders(data_dir,
                      batch_size=1024,
-                     split_trainvalid=0.90,
-                     t_testsplit = 5,
-                     num_workers = 0,
-                     sample_uniform_slate=False):
+                     num_workers= 0,
+                     sample_uniform_slate=False,
+                     valid_pct= 0.05,
+                     test_pct= 0.05,
+                     t_testsplit= 5):
     
     logging.info("Download data if not in data folder..")
     datahelper.download_data_files(data_dir=data_dir)
@@ -70,8 +71,8 @@ def load_dataloaders(data_dir,
             )
 
     # Split dataset into train, validation and test:
-    num_validusers = int(len(dataset) * (1-split_trainvalid)/2)
-    num_testusers = int(len(dataset) * (1-split_trainvalid)/2)
+    num_validusers = int(len(dataset) * valid_pct)
+    num_testusers = int(len(dataset) * test_pct)
     torch.manual_seed(0)
     num_users = len(dataset)
     perm_user = torch.randperm(num_users)
