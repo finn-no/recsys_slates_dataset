@@ -1,20 +1,13 @@
 #%% Imports
 import torch
 import datahelper
-# datahelper.download_data_files()
-
-#%%
-import os
-import logging
-logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
-import pickle
 from torch.utils.data import Dataset, DataLoader
 import torch
 import json
-def mkdir(path):
-    if os.path.isdir(path) == False:
-        os.makedirs(path)
 import numpy as np
+import logging
+logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
+
 #%% DATALOADERS
 class SequentialDataset(Dataset):
     '''
@@ -25,7 +18,9 @@ class SequentialDataset(Dataset):
         self.data = data
         self.num_items = self.data['slate'].max()+1
         self.sample_uniform_slate = sample_uniform_slate
-        logging.info("Loading dataset with slate size={} and uniform candidate sampling={}".format(self.data['slate'].size(), self.sample_uniform_slate))
+        logging.info(
+            "Loading dataset with slate size={} and uniform candidate sampling={}"
+            .format(self.data['slate'].size(), self.sample_uniform_slate))
 
     def __getitem__(self, idx):
         batch = {key: val[idx] for key, val in self.data.items()}
@@ -68,7 +63,10 @@ def load_dataloaders(data_dir,
         # Use string2int object_hook found here: https://stackoverflow.com/a/54112705
         ind2val = json.load(
             handle, 
-            object_hook=lambda d: {int(k) if k.lstrip('-').isdigit() else k: v for k, v in d.items()}
+            object_hook=lambda d: {
+                int(k) if k.lstrip('-').isdigit() else k: v 
+                for k, v in d.items()
+                }
             )
 
     # Split dataset into train, validation and test:
@@ -106,3 +104,6 @@ def load_dataloaders(data_dir,
         itemattr = {key : val for key, val in itemattr_file.items()}
 
     return ind2val, itemattr, dataloaders
+
+if __name__ == "__main__":
+    load_dataloaders()
