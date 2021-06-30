@@ -1,12 +1,8 @@
 # FINN.no Recommender Systems Slate Dataset
-This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
-The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
-
-The repository is split into the dataset (`data/`) and the accompanying code for the paper (`code/`).
-
 We release the *FINN.no recommender systems slate dataset* to improve recommender systems research.
 The dataset includes both search and recommendation interactions between users and the platform over a 30 day period.
 The dataset has logged both exposures and clicks, *including interactions where the user did not click on any of the items in the slate*.
+To our knowledge there exist no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](finn-frontpage.png)
 
@@ -16,25 +12,27 @@ The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million  users a
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](interaction_illustration.png)
 
 FINN.no is the leading marketplace in the Norwegian classifieds market and provides users with a platform to buy and sell general merchandise, cars, real estate, as well as house rentals and job offerings.
-
-This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available is welcome.
-
 For questions, email simen.eide@finn.no or file an issue.
 
+## Organization
+The repository is organized as follows:
+- The dataset is placed in (`data/`).
+- The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
+
 ## Download and prepare dataset
-
-The data file is compressed, unzip by the following command: `gunzip -c data.pt.gz >data.pt`
-
-1. Install git-lfs: This repository uses `git-lfs` to store the dataset. Therefore you need the git-lfs package in addition to github. See [https://git-lfs.github.com/] for installation instructions.
-(e.g. for apt-get `sudo apt-get install git-lfs`)
-2. Clone the repository
-3. The data file is compressed, unzip by the following command: `gunzip -c data.pt.gz >data.pt`
+The data files can either be obtained by cloning this repository with git lfs, or (preferably) use the [datahelper.download_data_files()](https://github.com/finn-no/recsys-slates-dataset/blame/transform-to-numpy-arrays/datahelper.py#L3) function which downloads the same dataset from google drive.
+For pytorch users, they can directly use the `dataset_torch.load_dataloaders()` to get ready-to-use dataloaders for training, validation and test datasets.
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 
+NB: This quickstart notebook is currently incompatible with the main branch. 
+We will update the notebook as soon as we have published a pip-package. In the meantime, please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0)
 
 ## Citations
+This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
+The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
+
 If you use either the code, data or paper, please consider citing the paper.
 
 ```
@@ -49,11 +47,13 @@ If you use either the code, data or paper, please consider citing the paper.
 ```
 
 # Todo
-There are some limitations on the repository today that we would like to improve:
+This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available is welcome.
+There are some features of the repository that we are working on:
 
-- [ ] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data
-- [ ] Maintain a pytorch dataset for easy usage
+- [x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data
+- [x] Maintain a pytorch dataset for easy usage
 - [ ] Create a pip package for easier installation and usage. the package should download the dataset using a function.
+- [ ] Make the quickstart guide compatible with the pip package and numpy format.
 - [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.
 - [ ] Distribute the data on other platforms such as kaggle.
 - [ ] Add a short description of the data in the readme.md directly.
