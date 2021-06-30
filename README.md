@@ -1,11 +1,4 @@
 # FINN.no Recommender Systems Slate Dataset
-This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
-The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
-
-The repository is organized as follows:
-- The dataset is placed in (`data/`).
-- The code open sourced from the article is found in (`code/`). However, we are in the process of making the data more generally available which makes the paper code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
-
 We release the *FINN.no recommender systems slate dataset* to improve recommender systems research.
 The dataset includes both search and recommendation interactions between users and the platform over a 30 day period.
 The dataset has logged both exposures and clicks, *including interactions where the user did not click on any of the items in the slate*.
@@ -21,6 +14,11 @@ The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million  users a
 FINN.no is the leading marketplace in the Norwegian classifieds market and provides users with a platform to buy and sell general merchandise, cars, real estate, as well as house rentals and job offerings.
 For questions, email simen.eide@finn.no or file an issue.
 
+## Organization
+The repository is organized as follows:
+- The dataset is placed in (`data/`).
+- The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
+
 ## Download and prepare dataset
 The data files can either be obtained by cloning this repository with git lfs, or (preferably) use the [datahelper.download_data_files()](https://github.com/finn-no/recsys-slates-dataset/blame/transform-to-numpy-arrays/datahelper.py#L3) function which downloads the same dataset from google drive.
 For pytorch users, they can directly use the `dataset_torch.load_dataloaders()` to get ready-to-use dataloaders for training, validation and test datasets.
@@ -32,6 +30,9 @@ NB: This quickstart notebook is currently incompatible with the main branch.
 We will update the notebook as soon as we have published a pip-package. In the meantime, please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0)
 
 ## Citations
+This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
+The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
+
 If you use either the code, data or paper, please consider citing the paper.
 
 ```
