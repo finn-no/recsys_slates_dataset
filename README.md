@@ -61,15 +61,19 @@ We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-f
 NB: This quickstart notebook is currently incompatible with the main branch. 
 We will update the notebook as soon as we have published a pip-package. In the meantime, please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0)
 
-### Dataset file data.npz
+### Dataset files
 
-The dataset data.npz contains the following fields:
+The dataset `data.npz` contains the following fields:
 - userId
 - click
 - click_idx
 - slate_lengths
 - slate
 - interaction_type
+
+The dataset `itemattr.npz` contains the category ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are e constructed using a combination of categorical
+                                                                                                                                                                       information and the geographical location describing where the item is made available in the marketplace.
+
 
 
 ## Citations
