@@ -13,10 +13,7 @@ To our knowledge there exists no such large-scale dataset, and we hope this cont
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](finn-frontpage.png)
 
 For each user u and interaction step t we recorded all items in the visible slate 
-<img src="https://render.githubusercontent.com/render/math?math=\large a_t^u(s_t^u)">
-
-
-(up to the scroll length <img src="https://render.githubusercontent.com/render/math?math=\large s_t^u">), and the user's click response <img src="https://render.githubusercontent.com/render/math?math=\large c_t^u">.
+<img src="https://render.githubusercontent.com/render/math?math=\large a_t^u(s_t^u)"> (up to the scroll length <img src="https://render.githubusercontent.com/render/math?math=\large s_t^u">), and the user's click response <img src="https://render.githubusercontent.com/render/math?math=\large c_t^u">.
 The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the [paper](https://arxiv.org/abs/2104.15046).
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](interaction_illustration.png)
@@ -51,6 +48,8 @@ from recsys_slates_dataset import dataset_torch
 ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders()
 ```
 
+
+
 ## Organization
 The repository is organized as follows:
 - The dataset is placed in (`data/`).
@@ -61,6 +60,17 @@ We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-f
 
 NB: This quickstart notebook is currently incompatible with the main branch. 
 We will update the notebook as soon as we have published a pip-package. In the meantime, please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0)
+
+### Dataset file data.npz
+
+The dataset data.npz contains the following fields:
+- userId
+- click
+- click_idx
+- slate_lengths
+- slate
+- interaction_type
+
 
 ## Citations
 This repository accompanies the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
