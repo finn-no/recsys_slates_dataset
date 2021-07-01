@@ -13,7 +13,7 @@ entries:
       title: datahelper
       url: datahelper.html
     - output: web,pdf
-      title: Title
+      title: dataset_torch
       url: dataset_torch.html
     output: web
     title: recsys_slates_dataset

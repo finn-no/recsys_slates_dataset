@@ -2,6 +2,6 @@
   "recsys_slates_dataset": {
     "Overview": "/",
     "datahelper": "datahelper.html",
-    "Title": "dataset_torch.html"
+    "dataset_torch": "dataset_torch.html"
   }
 }
