@@ -64,13 +64,12 @@ We will update the notebook as soon as we have published a pip-package. In the m
 ### Dataset files
 
 The dataset `data.npz` contains the following fields:
-- userId
-- click
-- click_idx
-- slate_lengths
-- slate
+- userId: The unique identifier of the user.
+- click: The items the user clicked on in each of the 20 presented slates.
+- click_idx: The index the clicked item was on in each of the 20 presented slates.
+- slate_lengths: The length of the 20 presented slates.
+- slate: All the items in each of the 20 presented slates.
 - interaction_type: The recommendation slate can be the result of a search query (1), a recommendation (2) or can be undefined (0).
-
 
 The dataset `itemattr.npz` contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location. 
 
@@ -105,6 +104,8 @@ There are some features of the repository that we are working on:
 - [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood, etc.
 - [ ] Distribute the data on other platforms such as Kaggle.
 - [ ] Add a short description of the data in the readme.md directly.
+- [ ] Add link to the paper `A new sequential dataset logging interactions, all viewed items and click
+                             responses/no-click for recommender systems research.
 
 As the current state is in an early stage, it makes sense to allow the above changes non-backward compatible. 
 However, this should be completed within the next couple of months.
