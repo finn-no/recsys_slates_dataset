@@ -1,9 +1,9 @@
 package:
   name: recsys_slates_dataset
-  version: 0.0.1
+  version: 0.0.2
 source:
-  sha256: 920d818a4374fbd5420012b6dabfd6ac3875194cd54b58be38fb4cbf19f9b9f3
-  url: https://files.pythonhosted.org/packages/9b/45/5c88b4d2d2e0ef25375a3ada724b304e793eb7ce71fd5c733b90bde94dfe/recsys_slates_dataset-0.0.1.tar.gz
+  sha256: 3c76c2f266cd816f9954a7b3e6dcc060278123caf079061086b53c05c35e2e12
+  url: https://files.pythonhosted.org/packages/1d/09/19861b503280f7936990b39c27354445639d65d3a108eaba867003cf1021/recsys_slates_dataset-0.0.2.tar.gz
 about:
   dev_url: http://opensource.finn.no
   doc_url: http://opensource.finn.no

@@ -1,8 +1,8 @@
-# FINN.no Recommender Systems Slate Dataset
-> Repository containing the recommender systems slates dataset
+# FINN.no Slate Dataset for Recommender Systems
+> Data and helper functions for FINN.no slate dataset containing both viewed items and clicks from the FINN.no second hand marketplace.
 
 
-We release the *FINN.no recommender systems slate dataset* to improve recommender systems research.
+We release the *FINN.no slate dataset* to improve recommender systems research.
 The dataset includes both search and recommendation interactions between users and the platform over a 30 day period.
 The dataset has logged both exposures and clicks, *including interactions where the user did not click on any of the items in the slate*.
 To our knowledge there exists no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.
@@ -39,20 +39,10 @@ datahelper.download_data_files()
 
 Download and prepare data into ready-to-use pytorch dataloaders:
 
-```python
+```
 from recsys_slates_dataset import dataset_torch
 ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders()
-dataloaders
 ```
-
-
-
-
-    {'train': <torch.utils.data.dataloader.DataLoader at 0x7f957926d190>,
-     'valid': <torch.utils.data.dataloader.DataLoader at 0x7f95889b12b0>,
-     'test': <torch.utils.data.dataloader.DataLoader at 0x7f95889b1250>}
-
-
 
 ## Organization
 The repository is organized as follows:
