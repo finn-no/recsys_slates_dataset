@@ -6,7 +6,7 @@ index = {"say_hello": "00_core.ipynb"}
 
 modules = ["core.py"]
 
-doc_url = "https://finn-no.github.io/recsys_slates_dataset/"
+doc_url = "http://opensource.finn.no/recsys_slates_dataset/"
 
 git_url = "https://github.com/finn-no/recsys_slates_dataset/tree/nbdev/"
 
