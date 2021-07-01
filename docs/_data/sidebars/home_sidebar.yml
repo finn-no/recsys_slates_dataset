@@ -12,6 +12,9 @@ entries:
     - output: web,pdf
       title: module name here
       url: core.html
+    - output: web,pdf
+      title: Title
+      url: datahelper.html
     output: web
     title: recsys_slates_dataset
   output: web

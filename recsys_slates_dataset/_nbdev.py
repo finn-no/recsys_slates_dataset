@@ -2,9 +2,11 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"say_hello": "00_core.ipynb"}
+index = {"say_hello": "00_core.ipynb",
+         "download_data_files": "datahelper.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "datahelper.py"]
 
 doc_url = "http://opensource.finn.no/recsys_slates_dataset/"
 
