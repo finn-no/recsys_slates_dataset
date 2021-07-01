@@ -3,7 +3,7 @@ output: web
 topnav_title: recsys_slates_dataset
 site_title: recsys_slates_dataset
 company_name: Used with attribution
-description: Repo for the recommender system slates dataset: Contains the presented items and whether and what the user clicked on.
+description: Contains the presented items and whether and what the user clicked on.
 # Set to false to disable KaTeX math
 use_math: true
 # Add Google analytics id if you have one and want to use it here
