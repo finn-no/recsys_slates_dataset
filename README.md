@@ -69,11 +69,12 @@ The dataset `data.npz` contains the following fields:
 - click_idx
 - slate_lengths
 - slate
-- interaction_type
+- interaction_type: The recommendation slate can be the result of a search query (1), a recommendation (2) or can be undefined (0).
 
-The dataset `itemattr.npz` contains the category ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are e constructed using a combination of categorical
-                                                                                                                                                                       information and the geographical location describing where the item is made available in the marketplace.
 
+The dataset `itemattr.npz` contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location. 
+
+The dataset  `ind2val.json` contains the mapping between the indices and the values of the categories (e.g. `"287": "JOB, Rogaland"`) and interaction types (e.g. `"1": "search").                                                                                                                                                                   information and the geographical location describing where the item is made available in the marketplace.
 
 
 ## Citations
