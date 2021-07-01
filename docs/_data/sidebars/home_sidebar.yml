@@ -10,11 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: module name here
-      url: core.html
+      title: datahelper
+      url: datahelper.html
     - output: web,pdf
       title: Title
-      url: datahelper.html
+      url: dataset_torch.html
     output: web
     title: recsys_slates_dataset
   output: web

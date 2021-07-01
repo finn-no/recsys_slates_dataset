@@ -3,10 +3,13 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"say_hello": "00_core.ipynb",
-         "download_data_files": "datahelper.ipynb"}
+         "download_data_files": "datahelper.ipynb",
+         "SequentialDataset": "dataset_torch.ipynb",
+         "load_dataloaders": "dataset_torch.ipynb"}
 
 modules = ["core.py",
-           "datahelper.py"]
+           "datahelper.py",
+           "dataset_torch.py"]
 
 doc_url = "http://opensource.finn.no/recsys_slates_dataset/"
 
