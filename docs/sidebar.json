@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c04993e16493e59cd415a0c26efb8a3f71628feb774d05b134ddf937a4e3a510
-size 393
+{
+  "recsys_slates_dataset": {
+    "Overview": "/",
+    "module name here": "core.html"
+  }
+}
