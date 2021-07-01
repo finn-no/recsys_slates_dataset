@@ -1,5 +1,8 @@
+
 # FINN.no Slate Dataset for Recommender Systems
-> Data and helper functions for FINN.no slate dataset containing both viewed items and clicks from the FINN.no second hand marketplace.
+
+
+> Data and helper functions for FINN.no slate dataset containing both viewed items and clicks from the FINN.no second-hand marketplace.
 
 
 We release the *FINN.no slate dataset* to improve recommender systems research.
@@ -9,7 +12,11 @@ To our knowledge there exists no such large-scale dataset, and we hope this cont
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](finn-frontpage.png)
 
-For each user u and interaction step t we recorded all items in the visible slate ![equ](https://latex.codecogs.com/gif.latex?a_t^u(s_t^u) ) (up to the scroll length ![equ](https://latex.codecogs.com/gif.latex?s_t^u)), and the user's click response ![equ](https://latex.codecogs.com/gif.latex?c_t^u).
+For each user u and interaction step t we recorded all items in the visible slate 
+<img src="https://render.githubusercontent.com/render/math?math=\large a_t^u(s_t^u)">
+
+
+(up to the scroll length <img src="https://render.githubusercontent.com/render/math?math=\large s_t^u">), and the user's click response <img src="https://render.githubusercontent.com/render/math?math=\large c_t^u">.
 The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the [paper](https://arxiv.org/abs/2104.15046).
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](interaction_illustration.png)
@@ -37,7 +44,7 @@ datahelper.download_data_files()
 
 
 
-Download and prepare data into ready-to-use pytorch dataloaders:
+Download and prepare data into ready-to-use PyTorch dataloaders:
 
 ```
 from recsys_slates_dataset import dataset_torch
