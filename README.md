@@ -17,14 +17,47 @@ The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million  users a
 FINN.no is the leading marketplace in the Norwegian classifieds market and provides users with a platform to buy and sell general merchandise, cars, real estate, as well as house rentals and job offerings.
 For questions, email simen.eide@finn.no or file an issue.
 
+## Install
+
+`pip install recsys_slates_dataset`
+
+## How to use
+
+To download the generic numpy data files:
+
+```python
+from recsys_slates_dataset import datahelper
+datahelper.download_data_files()
+```
+
+
+
+
+    True
+
+
+
+Download and prepare data into ready-to-use pytorch dataloaders:
+
+```python
+from recsys_slates_dataset import dataset_torch
+ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders()
+dataloaders
+```
+
+
+
+
+    {'train': <torch.utils.data.dataloader.DataLoader at 0x7f957926d190>,
+     'valid': <torch.utils.data.dataloader.DataLoader at 0x7f95889b12b0>,
+     'test': <torch.utils.data.dataloader.DataLoader at 0x7f95889b1250>}
+
+
+
 ## Organization
 The repository is organized as follows:
 - The dataset is placed in (`data/`).
 - The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
-
-## Download and prepare dataset
-The data files can either be obtained by cloning this repository with git lfs, or (preferably) use the [datahelper.download_data_files()](https://github.com/finn-no/recsys-slates-dataset/blame/transform-to-numpy-arrays/datahelper.py#L3) function which downloads the same dataset from google drive.
-For pytorch users, they can directly use the `dataset_torch.load_dataloaders()` to get ready-to-use dataloaders for training, validation and test datasets.
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
@@ -49,7 +82,7 @@ If you use either the code, data or paper, please consider citing the paper.
 }
 ```
 
-# Todo
+## Todo
 This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available is welcome.
 There are some features of the repository that we are working on:
 
@@ -63,25 +96,3 @@ There are some features of the repository that we are working on:
 
 As the current state is in early stage, it makes sense to allow the above changes non-backward compatible. 
 However, this should be completed within the next couple of months.
-
-
-This file will become your README and also the index of your documentation.
-
-## Install
-
-`pip install your_project_name`
-
-## How to use
-
-Fill me in please! Don't forget code examples:
-
-```
-1+1
-```
-
-
-
-
-    2
-
-
