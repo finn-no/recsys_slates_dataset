@@ -1,8 +1,5 @@
-
 # FINN.no Slate Dataset for Recommender Systems
-
-
-> Data and helper functions for FINN.no slate dataset containing both viewed items and clicks from the FINN.no second-hand marketplace.
+> Data and helper functions for FINN.no slate dataset containing both viewed items and clicks from the FINN.no second hand marketplace.
 
 
 We release the *FINN.no slate dataset* to improve recommender systems research.
@@ -12,8 +9,7 @@ To our knowledge there exists no such large-scale dataset, and we hope this cont
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](finn-frontpage.png)
 
-For each user u and interaction step t we recorded all items in the visible slate 
-<img src="https://render.githubusercontent.com/render/math?math=\large a_t^u(s_t^u)"> (up to the scroll length <img src="https://render.githubusercontent.com/render/math?math=\large s_t^u">), and the user's click response <img src="https://render.githubusercontent.com/render/math?math=\large c_t^u">.
+For each user u and interaction step t we recorded all items in the visible slate <img src="https://render.githubusercontent.com/render/math?math=\large a_t^u(s_t^u)"> (up to the scroll length <img src="https://render.githubusercontent.com/render/math?math=\large s_t^u">), and the user's click response  <img src="https://render.githubusercontent.com/render/math?math=\large c_t^u">.
 The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the [paper](https://arxiv.org/abs/2104.15046).
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](interaction_illustration.png)
@@ -41,19 +37,17 @@ datahelper.download_data_files()
 
 
 
-Download and prepare data into ready-to-use PyTorch dataloaders:
+Download and prepare data into ready-to-use pytorch dataloaders:
 
 ```
 from recsys_slates_dataset import dataset_torch
 ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders()
 ```
 
-
-
 ## Organization
 The repository is organized as follows:
 - The dataset is placed in (`data/`).
-- The code open-sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
+- The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
@@ -73,8 +67,7 @@ The dataset `data.npz` contains the following fields:
 
 The dataset `itemattr.npz` contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location. 
 
-The dataset  `ind2val.json` contains the mapping between the indices and the values of the categories (e.g. `"287": "JOB, Rogaland"`) and interaction types (e.g. `"1": "search").                                                                                                                                                                   information and the geographical location describing where the item is made available in the marketplace.
-
+The dataset  `ind2val.json` contains the mapping between the indices and the values of the categories (e.g. `"287": "JOB, Rogaland"`) and interaction types (e.g. `"1": "search"`).                                                                                                                                                                  
 
 ## Citations
 This repository accompanies the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
@@ -93,19 +86,18 @@ If you use either the code, data or paper, please consider citing the paper.
 }
 ```
 
-# Todo
+## Todo
 This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available are welcome.
 There are some features of the repository that we are working on:
 
-- [x] Release the dataset as numpy objects instead of PyTorch arrays. This will help non-PyTorch users to more easily utilize the data
+- [x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-PyTorch users to more easily utilize the data
 - [x] Maintain a PyTorch dataset for easy usage
 - [ ] Create a pip package for easier installation and usage. the package should download the dataset using a function.
 - [ ] Make the quickstart guide compatible with the pip package and numpy format.
-- [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood, etc.
+- [ ] Add easily usable functions that compute relevant metrics such as hitrate, log-likelihood etc.
 - [ ] Distribute the data on other platforms such as Kaggle.
 - [ ] Add a short description of the data in the readme.md directly.
-- [ ] Add link to the paper `A new sequential dataset logging interactions, all viewed items and click
-                             responses/no-click for recommender systems research.
+- [ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research 
 
 As the current state is in an early stage, it makes sense to allow the above changes non-backward compatible. 
 However, this should be completed within the next couple of months.
