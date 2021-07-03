@@ -27,21 +27,14 @@ To download the generic numpy data files:
 
 ```python
 from recsys_slates_dataset import datahelper
-datahelper.download_data_files()
+datahelper.download_data_files(data_dir="data")
 ```
-
-
-
-
-    True
-
-
 
 Download and prepare data into ready-to-use pytorch dataloaders:
 
-```
+``` python
 from recsys_slates_dataset import dataset_torch
-ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders()
+ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders(data_dir="data")
 ```
 
 ## Organization
