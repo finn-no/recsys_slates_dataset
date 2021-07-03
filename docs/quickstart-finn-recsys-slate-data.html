@@ -31,7 +31,57 @@ nb_path: "quickstart-finn-recsys-slate-data.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Install-dependencies,-download-and-unzip-data">Install dependencies, download and unzip data<a class="anchor-link" href="#Install-dependencies,-download-and-unzip-data"> </a></h3><p>This step is necessary for google colab, not if you have manually downloaded the repo.</p>
+<h2 id="Install-the-recsys_slates_dataset-pip-package">Install the recsys_slates_dataset pip package<a class="anchor-link" href="#Install-the-recsys_slates_dataset-pip-package"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install recsys_slates_dataset -q
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Download-and-load-dataloaders-that-are-ready-to-use">Download and load dataloaders that are ready to use<a class="anchor-link" href="#Download-and-load-dataloaders-that-are-ready-to-use"> </a></h2><p>It is possible to directly load the dataset as a pytorch dataloader which includes the same dataset splits etc as in the original paper.
+Use the <a href="/recsys_slates_dataset/dataset_torch.html#load_dataloaders"><code>load_dataloaders</code></a> function in the <a href="/recsys_slates_dataset/dataset_torch.html"><code>dataset_torch</code></a> module. It has the following options:</p>
+<table>
+<thead><tr>
+<th>Argument</th>
+<th style="text-align:right">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch_size</td>
+<td style="text-align:right">Number of unique users sampled in each batch</td>
+</tr>
+<tr>
+<td>split_trainvalid</td>
+<td style="text-align:right">Ratio of full dataset dedicated to train <br> (val/test is split evenly among the rest)</td>
+</tr>
+<tr>
+<td>t_testsplit</td>
+<td style="text-align:right">For users in valid and test, <br> how many interactions should belong to training set</td>
+</tr>
+<tr>
+<td>sample_uniform_action</td>
+<td style="text-align:right">If this is True, the exposures in the dataset <br> are sampled as in the <code>all-item likelihood</code> (see paper)</td>
+</tr>
+</tbody>
+</table>
+<p>The outputs of the function are <code>ind2val</code>, <code>itemattr</code> and a dictionary with pytorch dataloaders for training, validation and test.</p>
 
 </div>
 </div>
@@ -43,12 +93,70 @@ nb_path: "quickstart-finn-recsys-slate-data.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>sudo apt-get install git-lfs -q
-<span class="o">!</span>git lfs install
-<span class="o">!</span><span class="nb">echo</span> Clone data repository..:
-<span class="o">!</span>git clone https://github.com/finn-no/recsys-slates-dataset.git
-<span class="o">!</span><span class="nb">echo</span> Unzip datafile..:
-<span class="o">!</span>gunzip -c recsys-slates-dataset/data/data.pt.gz &gt;recsys-slates-dataset/data/data.pt
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">recsys_slates_dataset</span> <span class="kn">import</span> <span class="n">dataset_torch</span>
+<span class="n">ind2val</span><span class="p">,</span> <span class="n">itemattr</span><span class="p">,</span> <span class="n">dataloaders</span> <span class="o">=</span> <span class="n">dataset_torch</span><span class="o">.</span><span class="n">load_dataloaders</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="s2">&quot;dat&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dictionary containing the dataloaders:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-03 21:13:13,672 Download data if not in data folder..
+2021-07-03 21:13:13,676 Downloading data.npz
+2021-07-03 21:13:13,691 Downloading ind2val.json
+2021-07-03 21:13:13,694 Downloading itemattr.npz
+2021-07-03 21:13:13,698 Done downloading all files.
+2021-07-03 21:13:13,707 Load data..
+2021-07-03 21:13:53,963 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
+2021-07-03 21:13:54,179 In train: num_users: 2277645, num_batches: 2225
+2021-07-03 21:13:54,187 In valid: num_users: 113882, num_batches: 112
+2021-07-03 21:13:54,192 In test: num_users: 113882, num_batches: 112
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Dictionary containing the dataloaders:
+{&#39;train&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88da59a0&gt;, &#39;valid&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88dc6e80&gt;, &#39;test&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88dc6550&gt;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Batches">Batches<a class="anchor-link" href="#Batches"> </a></h3><p>The batches are split by userId and provides the necessary information for training. We will explain each element below:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -61,16 +169,13 @@ nb_path: "quickstart-finn-recsys-slate-data.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Clone data repository..:
-Cloning into &#39;recsys-slates-dataset&#39;...
-remote: Enumerating objects: 121, done.
-remote: Counting objects: 100% (121/121), done.
-remote: Compressing objects: 100% (84/84), done.
-remote: Total 121 (delta 57), reused 90 (delta 34), pack-reused 0
-Receiving objects: 100% (121/121), 844.46 KiB | 7.68 MiB/s, done.
-Resolving deltas: 100% (57/57), done.
-Filtering content: 100% (3/3), 1.30 GiB | 35.09 MiB/s, done.
-Unzip datafile..:
+<pre>userId torch.Size([1024])
+click torch.Size([1024, 20])
+click_idx torch.Size([1024, 20])
+slate_lengths torch.Size([1024, 20])
+slate torch.Size([1024, 20, 25])
+interaction_type torch.Size([1024, 20])
+mask_type torch.Size([1024, 20])
 </pre>
 </div>
 </div>
@@ -81,28 +186,10 @@ Unzip datafile..:
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Main-dataset-file-data.pt">Main dataset file <code>data.pt</code><a class="anchor-link" href="#Main-dataset-file-data.pt"> </a></h3><p>The dataset consist of 2.2M unique users that have interacted up to 20 times with the internet platform platform, and has been exposed to up to 25 items at each interaction.
-<code>data.pt</code> contains all the slate and click data, and the two main arrays are <code>click</code> and <code>action</code>. 
+<h3 id="Interaction-data-(data.npz)">Interaction data (<code>data.npz</code>)<a class="anchor-link" href="#Interaction-data-(data.npz)"> </a></h3><p>The dataset consist of 2.2M unique users that have interacted up to 20 times with the internet platform platform, and has been exposed to up to 25 items at each interaction.
+<code>data.npz</code> contains all the slate and click data, and the two main arrays are <code>click</code> and <code>slate</code>. 
 The convention of the dimension of the arrays are that the first dimension is per user, second dimension is time and third dimension is the presented slate.
 The full description of all array are as follows:</p>
 <table>
@@ -114,7 +201,7 @@ The full description of all array are as follows:</p>
 </thead>
 <tbody>
 <tr>
-<td>action</td>
+<td>slate</td>
 <td style="text-align:center">[userId, interaction num, slate pos]</td>
 <td style="text-align:right">the presented slates to the users;</td>
 </tr>
@@ -124,17 +211,17 @@ The full description of all array are as follows:</p>
 <td style="text-align:right">items clicked by the users in each slate</td>
 </tr>
 <tr>
-<td>displayType</td>
+<td>interaction_type</td>
 <td style="text-align:center">[userId, interaction num]</td>
 <td style="text-align:right">type of interaction the user had with the platform (search or recommendation)</td>
 </tr>
 <tr>
 <td>click_idx</td>
 <td style="text-align:center">[userId, interaction num]</td>
-<td style="text-align:right">Auxillary data: The position of the click in the <code>action</code> dataframe (integer from 0-24). <br> Useful for e.g. categorical likelihoods</td>
+<td style="text-align:right">Auxillary data: The position of the click in the <code>slate</code> dataframe (integer from 0-24). <br> Useful for e.g. categorical likelihoods</td>
 </tr>
 <tr>
-<td>lengths</td>
+<td>slate_lengths</td>
 <td style="text-align:center">[userId, interaction num]</td>
 <td style="text-align:right">Auxillary data: the actual length of the slate. <br> Same as 25-<code>"number of pad index in action"</code></td>
 </tr>
@@ -151,24 +238,10 @@ The full description of all array are as follows:</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;recsys-slates-dataset/data/data.pt&quot;</span><span class="p">)</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat</span> <span class="o">=</span> <span class="n">dataloaders</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">data</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dat</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="c1"># Print dimensions of all arrays:</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dat</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="n">val</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -183,11 +256,12 @@ The full description of all array are as follows:</p>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>userId : 	 torch.Size([2277645])
-lengths : 	 torch.Size([2277645, 20])
-displayType : 	 torch.Size([2277645, 20])
-action : 	 torch.Size([2277645, 20, 25])
 click : 	 torch.Size([2277645, 20])
 click_idx : 	 torch.Size([2277645, 20])
+slate_lengths : 	 torch.Size([2277645, 20])
+slate : 	 torch.Size([2277645, 20, 25])
+interaction_type : 	 torch.Size([2277645, 20])
+mask_type : 	 torch.Size([2277645, 20])
 </pre>
 </div>
 </div>
@@ -213,12 +287,12 @@ click_idx : 	 torch.Size([2277645, 20])
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Slate:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;slate&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Click:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type of interaction: (1 implies search, see ind2val file)&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;displayType&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;interaction_type&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -269,8 +343,8 @@ The slate length and the click position can be found by the following auxillary 
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Click_idx:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;click_idx&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lengths:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;lengths&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Slate lengths:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;slate_lengths&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -285,7 +359,7 @@ The slate length and the click position can be found by the following auxillary 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Click_idx:
 tensor(4)
-lengths:
+Slate lengths:
 tensor(7)
 </pre>
 </div>
@@ -299,7 +373,7 @@ tensor(7)
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Index-to-item-file-ind2val.pickle">Index to item file <code>ind2val.pickle</code><a class="anchor-link" href="#Index-to-item-file-ind2val.pickle"> </a></h3><p>This files contains mapping from indices to values for the attributes userId, itemId, category and displayType.</p>
+<h3 id="Index-to-item-(ind2val.json)">Index to item (<code>ind2val.json</code>)<a class="anchor-link" href="#Index-to-item-(ind2val.json)"> </a></h3><p>This files contains mapping from indices to values for the attributes category and interaction_type.</p>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -309,22 +383,12 @@ tensor(7)
 </thead>
 <tbody>
 <tr>
-<td>userId</td>
-<td style="text-align:center">1.3M</td>
-<td style="text-align:right">Scrambled id of users</td>
-</tr>
-<tr>
-<td>itemId</td>
-<td style="text-align:center">2.3M</td>
-<td style="text-align:right">Scrambled id of items. <br> First indicies disclose pad, noclick and unk items.</td>
-</tr>
-<tr>
 <td>category</td>
 <td style="text-align:center">290</td>
 <td style="text-align:right">Mapping from the category index to a text string that describes the category. <br> The category value is a text string that describes the category and location of the group</td>
 </tr>
 <tr>
-<td>displayType</td>
+<td>interaction_type</td>
 <td style="text-align:center">3</td>
 <td style="text-align:right">Indices of whether the presented slate originated from search or recommendations</td>
 </tr>
@@ -349,8 +413,7 @@ For example, we see that category 3 is "BAP,antiques,Trøndelag" which implies t
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ind2val</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;recsys-slates-dataset/data/ind2val.pickle&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ind2val</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ind2val</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> first entries:&quot;</span><span class="p">)</span>
   <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">val</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -370,13 +433,6 @@ For example, we see that category 3 is "BAP,antiques,Trøndelag" which implies t
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> 
-itemId first entries:
-0: PAD
-1: noClick
-2: &lt;UNK&gt;
-3: item_3
-4: item_4
- 
 category first entries:
 0: PAD
 1: noClick
@@ -384,16 +440,10 @@ category first entries:
 3: BAP,antiques,Trøndelag
 4: MOTOR,,Sogn og Fjordane
  
-displayType first entries:
+interaction_type first entries:
 1: search
 2: rec
 0: &lt;UNK&gt;
- 
-userId first entries:
-1: user_1
-2: user_2
-3: user_3
-4: user_4
 </pre>
 </div>
 </div>
@@ -406,7 +456,7 @@ userId first entries:
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Item-attributes-file-itemattr.pickle">Item attributes file <code>itemattr.pickle</code><a class="anchor-link" href="#Item-attributes-file-itemattr.pickle"> </a></h3><p>A small attribute file that provides two pieces of information on the items. These are stored as numpy arrays.</p>
+<h3 id="Item-attributes-(itemattr.npz)">Item attributes (<code>itemattr.npz</code>)<a class="anchor-link" href="#Item-attributes-(itemattr.npz)"> </a></h3><p>A numpy array that encodes the category of each item.</p>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -419,11 +469,6 @@ userId first entries:
 <td>category</td>
 <td style="text-align:center">[itemId]</td>
 <td style="text-align:right">The group that each item belong to</td>
-</tr>
-<tr>
-<td>actions</td>
-<td style="text-align:center">[itemId]</td>
-<td style="text-align:right">Auxillary data: count of the number of total exposures per item. <br> <code>-1</code> is used to pad special items (unk, pad,noclick)</td>
 </tr>
 </tbody>
 </table>
@@ -438,9 +483,7 @@ userId first entries:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">itemattr</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;recsys-slates-dataset/data/itemattr.pickle&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">itemattr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">itemattr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">val</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The full dictionary:&quot;</span><span class="p">)</span>
@@ -457,8 +500,7 @@ userId first entries:
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>actions : (1311775,)
-category : (1311775,)
+<pre>category : (1311775,)
 
 The full dictionary:
 </pre>
@@ -470,8 +512,7 @@ The full dictionary:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;actions&#39;: array([-1., -1., -1., ..., 39., 14.,  4.]),
- &#39;category&#39;: array([  0.,   1.,   2., ..., 289., 289., 289.])}</pre>
+<pre>{&#39;category&#39;: array([  0.,   1.,   2., ..., 289., 289., 289.])}</pre>
 </div>
 
 </div>
@@ -551,8 +592,8 @@ Category name: REAL_ESTATE,,Oppland
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ratio of no clicks: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average slate length: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;lengths&#39;</span><span class="p">][</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;lengths&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ratio of slates that are recommendations: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;displayType&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;displayType&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average slate length: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;slate_lengths&#39;</span><span class="p">][</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;slate_lengths&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ratio of slates that are recommendations: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;interaction_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;interaction_type&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average number of interactions per user: </span><span class="si">{</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -570,126 +611,6 @@ Category name: REAL_ESTATE,,Oppland
 Average slate length: 11.14
 Ratio of slates that are recommendations: 0.303
 Average number of interactions per user: 16.43
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Directly-load-Pytorch-Dataloaders-with-train/valid/test-split">Directly load Pytorch Dataloaders with train/valid/test split<a class="anchor-link" href="#Directly-load-Pytorch-Dataloaders-with-train/valid/test-split"> </a></h1><p>It is possible to directly load the dataset as a pytorch dataloader which includes the same dataset splits etc as in the original paper.
-Use the <code>load_dataloaders</code> function in the <code>dataset.py</code> file. It has the following options:</p>
-<table>
-<thead><tr>
-<th>Argument</th>
-<th style="text-align:right">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>batch_size</td>
-<td style="text-align:right">Number of unique users sampled in each batch</td>
-</tr>
-<tr>
-<td>split_trainvalid</td>
-<td style="text-align:right">Ratio of full dataset dedicated to train <br> (val/test is split evenly among the rest)</td>
-</tr>
-<tr>
-<td>t_testsplit</td>
-<td style="text-align:right">For users in valid and test, <br> how many interactions should belong to training set</td>
-</tr>
-<tr>
-<td>sample_uniform_action</td>
-<td style="text-align:right">If this is True, the exposures in the dataset <br> are sampled as in the <code>all-item likelihood</code> (see paper)</td>
-</tr>
-</tbody>
-</table>
-<p>The outputs of the function is the same <code>ind2val</code> and <code>itemattr</code> as above.
-It also returns a dictionary with all the dataloaders.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">dataset</span>
-<span class="n">ind2val</span><span class="p">,</span> <span class="n">itemattr</span><span class="p">,</span> <span class="n">dataloaders</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">load_dataloaders</span><span class="p">(</span><span class="s2">&quot;recsys-slates-dataset/data&quot;</span><span class="p">,</span>
-                     <span class="n">batch_size</span><span class="o">=</span><span class="mi">30000</span><span class="p">,</span>
-                     <span class="n">split_trainvalid</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
-                     <span class="n">t_testsplit</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                     <span class="n">sample_uniform_action</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dictionary containing the dataloaders:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>2021-05-27 18:25:55,179 Load data..
-2021-05-27 18:26:01,887 Loading dataset with action size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
-2021-05-27 18:26:02,651 In train: num_users: 2277645, num_batches: 76
-2021-05-27 18:26:02,651 In valid: num_users: 113882, num_batches: 4
-2021-05-27 18:26:02,651 In test: num_users: 113882, num_batches: 4
- 
-Dictionary containing the dataloaders:
-{&#39;train&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fe7c0631b50&gt;, &#39;valid&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fe7c0631c40&gt;, &#39;test&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fe7c06315b0&gt;}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]))</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">batch</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>userId torch.Size([30000])
-lengths torch.Size([30000, 20])
-displayType torch.Size([30000, 20])
-action torch.Size([30000, 20, 25])
-click torch.Size([30000, 20])
-click_idx torch.Size([30000, 20])
-mask_type torch.Size([30000, 20])
 </pre>
 </div>
 </div>
@@ -813,9 +734,9 @@ Select only the clicks in training dataset:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor([  73296,   66666, 1154594,  613719,  642978, 1231978, 1231727,       1,
-          56397,       0,       0,       0,       0,       0,       0,       0,
-              0,       0,       0,       0])</pre>
+<pre>tensor([ 246058,  522114,  688321,       1,       1,  492102,  342033, 1050842,
+              1,       1,  878114, 1104893,  581533,       1, 1114863,  191381,
+         493192,  736750,  693049,  493709])</pre>
 </div>
 
 </div>
