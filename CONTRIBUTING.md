@@ -1,7 +1,10 @@
 # How to contribute
+We welcome all contributions such as writing wrapper for new frameworks (e.g. tensorflow), better docs and also if you have a dataset that could fit this framework.
 
 ## How to get started
-
+This repository use the (nbdev framework)[https://github.com/fastai/nbdev/] to build and maintain the repository, a fairly quick intro can be found at (https://github.com/fastai/nbdev/)[https://github.com/fastai/nbdev/].
+The main part is that one develop the code in jupyter notebooks, and that anything in the subdirectory `recsys_slates_dataset` is generated from these.
+Installation of the nbdev package is needed to generate these files: `pip install nbdev` or `conda install -c fastai nbdev`.
 Before anything else, please install the git hooks that run automatic scripts during each commit and merge to strip the notebooks of superfluous metadata (and avoid merge conflicts). After cloning the repository, run the following command inside it:
 ```
 nbdev_install_git_hooks
