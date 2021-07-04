@@ -40,9 +40,9 @@ ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders(data_dir="data")
 ## Organization
 The repository is organized as follows:
 - The dataset is placed in (`data/`).
-- The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
+- The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code_eide_et_al21/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
 
-## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
+## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 
 NB: This quickstart notebook is currently incompatible with the main branch. 
@@ -71,8 +71,8 @@ There are some features of the repository that we are working on:
 
 - [x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data
 - [x] Maintain a pytorch dataset for easy usage
-- [ ] Create a pip package for easier installation and usage. the package should download the dataset using a function.
-- [ ] Make the quickstart guide compatible with the pip package and numpy format.
+- [x] Create a pip package for easier installation and usage. the package should download the dataset using a function.
+- [x] Make the quickstart guide compatible with the pip package and numpy format.
 - [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.
 - [ ] Distribute the data on other platforms such as kaggle.
 - [ ] Add a short description of the data in the readme.md directly.

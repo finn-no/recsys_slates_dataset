@@ -104,9 +104,9 @@ For questions, email simen.eide@finn.no or file an issue.</p>
 <h2 id="Organization">Organization<a class="anchor-link" href="#Organization"> </a></h2><p>The repository is organized as follows:</p>
 <ul>
 <li>The dataset is placed in (<code>data/</code>).</li>
-<li>The code open sourced from the article <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> is found in (<code>code/</code>). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use <a href="https://github.com/finn-no/recsys-slates-dataset/tree/v1.0">the v1.0 release of the repository</a> for a compatible version of the code and dataset.</li>
+<li>The code open sourced from the article <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> is found in (<code>code_eide_et_al21/</code>). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use <a href="https://github.com/finn-no/recsys-slates-dataset/tree/v1.0">the v1.0 release of the repository</a> for a compatible version of the code and dataset.</li>
 </ul>
-<h2>Quickstart dataset <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></h2>
+<h2>Quickstart dataset <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></h2>
 <p>We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.</p>
 <p>NB: This quickstart notebook is currently incompatible with the main branch. 
 We will update the notebook as soon as we have published a pip-package. In the meantime, please use <a href="https://github.com/finn-no/recsys-slates-dataset/tree/v1.0">the v1.0 release of the repository</a></p>
@@ -127,8 +127,8 @@ There are some features of the repository that we are working on:</p>
 <ul>
 <li>[x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data</li>
 <li>[x] Maintain a pytorch dataset for easy usage</li>
-<li>[ ] Create a pip package for easier installation and usage. the package should download the dataset using a function.</li>
-<li>[ ] Make the quickstart guide compatible with the pip package and numpy format.</li>
+<li>[x] Create a pip package for easier installation and usage. the package should download the dataset using a function.</li>
+<li>[x] Make the quickstart guide compatible with the pip package and numpy format.</li>
 <li>[ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.</li>
 <li>[ ] Distribute the data on other platforms such as kaggle.</li>
 <li>[ ] Add a short description of the data in the readme.md directly.</li>
