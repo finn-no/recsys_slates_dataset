@@ -39,14 +39,12 @@ ind2val, itemattr, dataloaders = dataset_torch.load_dataloaders(data_dir="data")
 
 ## Organization
 The repository is organized as follows:
-- The dataset is placed in (`data/`).
+- The dataset is placed in `data/` and stored using git-lfs. We also provide an automatic download function in the pip package (preferred usage).
 - The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code_eide_et_al21/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb)
 We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
-
-NB: This quickstart notebook is currently incompatible with the main branch. 
-We will update the notebook as soon as we have published a pip-package. In the meantime, please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0)
+It gives a quick introduction to how to use the dataset.
 
 ## Citations
 This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
