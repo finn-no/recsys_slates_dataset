@@ -1,0 +1,45 @@
+package:
+  name: recsys_slates_dataset
+  version: 0.0.2
+source:
+  sha256: 3c76c2f266cd816f9954a7b3e6dcc060278123caf079061086b53c05c35e2e12
+  url: https://files.pythonhosted.org/packages/1d/09/19861b503280f7936990b39c27354445639d65d3a108eaba867003cf1021/recsys_slates_dataset-0.0.2.tar.gz
+about:
+  dev_url: http://opensource.finn.no
+  doc_url: http://opensource.finn.no
+  home: http://opensource.finn.no
+  license: Apache Software
+  license_family: APACHE
+  summary: Recommender Systems Dataset from FINN.no containing the presented items
+    and whether and what the user clicked on.
+build:
+  noarch: python
+  number: '0'
+  script: '{{ PYTHON }} -m pip install . -vv'
+extra:
+  recipe-maintainers:
+  - finn-no
+requirements:
+  host:
+  - pip
+  - python
+  - packaging
+  - requests>=2.25.1
+  - numpy>=1.19.5
+  - pandas>=1.0.5
+  - torch>=1.6.0
+  - PyYAML==5.4.1
+  - googledrivedownloader==0.4
+  run:
+  - pip
+  - python
+  - packaging
+  - requests>=2.25.1
+  - numpy>=1.19.5
+  - pandas>=1.0.5
+  - torch>=1.6.0
+  - PyYAML==5.4.1
+  - googledrivedownloader==0.4
+test:
+  imports:
+  - recsys_slates_dataset
