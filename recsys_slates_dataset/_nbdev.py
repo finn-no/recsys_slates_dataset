@@ -11,6 +11,6 @@ modules = ["datahelper.py",
 
 doc_url = "http://opensource.finn.no/recsys_slates_dataset/"
 
-git_url = "https://github.com/finn-no/recsys_slates_dataset/tree/nbdev/"
+git_url = "https://github.com/finn-no/recsys_slates_dataset/tree/main/"
 
 def custom_doc_links(name): return None
