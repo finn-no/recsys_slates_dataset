@@ -1,8 +1,3 @@
-{
-  "recsys_slates_dataset": {
-    "Overview": "/",
-    "datahelper": "datahelper.html",
-    "dataset_torch": "dataset_torch.html",
-    "Quick start with the FINN.no recsys slate dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)": "quickstart-finn-recsys-slate-data.html"
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:2d39f5dee2bbbe234149d3759ce4abc671a5ceafc33ba76ece16cbe13b4d9fc5
+size 436
