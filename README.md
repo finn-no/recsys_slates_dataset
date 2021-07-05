@@ -71,6 +71,7 @@ There are some features of the repository that we are working on:
 - [x] Maintain a pytorch dataset for easy usage
 - [x] Create a pip package for easier installation and usage. the package should download the dataset using a function.
 - [x] Make the quickstart guide compatible with the pip package and numpy format.
+- [ ] The git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is [posted on nbdev](https://github.com/fastai/nbdev/issues/506).
 - [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.
 - [ ] Distribute the data on other platforms such as kaggle.
 - [ ] Add a short description of the data in the readme.md directly.
