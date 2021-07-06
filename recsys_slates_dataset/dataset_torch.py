@@ -89,17 +89,17 @@ def load_dataloaders(data_dir= "dat",
     # Split dictionary into train/valid/test with a phase mask that shows which interactions are in different sets
     # (as some users have both train and valid data)
     data_train = data
-    data_train['phase_mask'] = torch.ones_like(data['click'])
-    data_train['phase_mask'][test_user_idx,t_testsplit:]=0
-    data_train['phase_mask'][valid_user_idx,t_testsplit:]=0
+    data_train['phase_mask'] = torch.ones_like(data['click']).bool()
+    data_train['phase_mask'][test_user_idx,t_testsplit:]=False
+    data_train['phase_mask'][valid_user_idx,t_testsplit:]=False
 
     data_valid = {key: val[valid_user_idx] for key, val in data.items()}
-    data_valid['phase_mask'] = torch.zeros_like(data_valid['click'])
-    data_valid['phase_mask'][:,t_testsplit:] = 1.0
+    data_valid['phase_mask'] = torch.zeros_like(data_valid['click']).bool()
+    data_valid['phase_mask'][:,t_testsplit:] = True
 
     data_test = {key: val[test_user_idx] for key, val in data.items()}
-    data_test['phase_mask'] = torch.zeros_like(data_test['click'])
-    data_test['phase_mask'][:,t_testsplit:] = 1.0
+    data_test['phase_mask'] = torch.zeros_like(data_test['click']).bool()
+    data_test['phase_mask'][:,t_testsplit:] = True
 
     data_dicts = {
         "train" : data_train,
