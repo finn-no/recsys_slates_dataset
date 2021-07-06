@@ -42,7 +42,6 @@ nb_path: "dataset_torch.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="SequentialDataset" class="doc_header"><code>class</code> <code>SequentialDataset</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/dataset_torch.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SequentialDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
 </blockquote>
-<p>Note: displayType has been uncommented for future easy implementation.</p>
 
 </div>
 
@@ -61,6 +60,32 @@ nb_path: "dataset_torch.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>data_dir= "dat"
+batch_size=1024
+num_workers= 0
+sample_uniform_slate=False
+valid_pct= 0.05
+test_pct= 0.05
+t_testsplit= 5</p>
+<p>logging.info('Load data..')
+with np.load("{}/data.npz".format(data_dir)) as data_np:
+    data = {key: torch.tensor(val) for key, val in data_np.items()}</p>
+<p>with open('{}/ind2val.json'.format(data_dir), 'rb') as handle:</p>
+
+<pre><code># Use string2int object_hook found here: https://stackoverflow.com/a/54112705
+ind2val = json.load(
+    handle, 
+    object_hook=lambda d: {
+        int(k) if k.lstrip('-').isdigit() else k: v 
+        for k, v in d.items()
+        }
+    )</code></pre>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -72,7 +97,7 @@ nb_path: "dataset_torch.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_dataloaders" class="doc_header"><code>load_dataloaders</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/dataset_torch.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_dataloaders</code>(<strong><code>data_dir</code></strong>=<em><code>'dat'</code></em>, <strong><code>batch_size</code></strong>=<em><code>1024</code></em>, <strong><code>num_workers</code></strong>=<em><code>0</code></em>, <strong><code>sample_uniform_slate</code></strong>=<em><code>False</code></em>, <strong><code>valid_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>test_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>t_testsplit</code></strong>=<em><code>5</code></em>)</p>
+<h4 id="load_dataloaders" class="doc_header"><code>load_dataloaders</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/dataset_torch.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_dataloaders</code>(<strong><code>data_dir</code></strong>=<em><code>'dat'</code></em>, <strong><code>batch_size</code></strong>=<em><code>1024</code></em>, <strong><code>num_workers</code></strong>=<em><code>0</code></em>, <strong><code>sample_uniform_slate</code></strong>=<em><code>False</code></em>, <strong><code>valid_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>test_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>t_testsplit</code></strong>=<em><code>5</code></em>)</p>
 </blockquote>
 <p>Loads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021</p>
 
@@ -100,10 +125,36 @@ nb_path: "dataset_torch.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ind2val</span><span class="p">,</span> <span class="n">itemattr</span><span class="p">,</span> <span class="n">dataloaders</span> <span class="o">=</span> <span class="n">load_dataloaders</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-06 11:10:45,749 Download data if not in data folder..
+2021-07-06 11:10:45,750 Downloading data.npz
+2021-07-06 11:10:45,751 Downloading ind2val.json
+2021-07-06 11:10:45,751 Downloading itemattr.npz
+2021-07-06 11:10:45,752 Done downloading all files.
+2021-07-06 11:10:45,753 Load data..
+2021-07-06 11:11:07,426 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
+2021-07-06 11:11:07,692 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
+2021-07-06 11:11:07,697 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False
+2021-07-06 11:11:07,702 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False
+2021-07-06 11:11:07,703 In train: num_users: 2277645, num_batches: 2225
+2021-07-06 11:11:07,703 In valid: num_users: 113882, num_batches: 112
+2021-07-06 11:11:07,704 In test: num_users: 113882, num_batches: 112
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
