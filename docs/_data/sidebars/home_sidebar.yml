@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: Quick start with the FINN.no recsys slate dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
       url: quickstart-finn-recsys-slate-data.html
+    - output: web,pdf
+      title: lightning_helper
+      url: lightninghelper.html
     output: web
     title: recsys_slates_dataset
   output: web
