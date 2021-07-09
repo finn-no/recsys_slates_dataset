@@ -2,7 +2,6 @@
 
 title: Quick start with the FINN.no recsys slate dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
 
-
 keywords: fastai
 sidebar: home_sidebar
 
@@ -55,7 +54,7 @@ nb_path: "examples/quickstart-finn-recsys-slate-data.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Download-and-load-dataloaders-that-are-ready-to-use">Download and load dataloaders that are ready to use<a class="anchor-link" href="#Download-and-load-dataloaders-that-are-ready-to-use"> </a></h2><p>It is possible to directly load the dataset as a pytorch dataloader which includes the same dataset splits etc as in the original paper.
-Use the <a href="/recsys_slates_dataset/dataset_torch.html#load_dataloaders"><code>load_dataloaders</code></a> function in the <a href="/recsys_slates_dataset/dataset_torch.html"><code>dataset_torch</code></a> module. It has the following options:</p>
+Use the <a href="/recsys_slates_dataset/dataset_torch#load_dataloaders"><code>load_dataloaders</code></a> function in the <a href="/recsys_slates_dataset/dataset_torch"><code>dataset_torch</code></a> module. It has the following options:</p>
 <table>
 <thead><tr>
 <th>Argument</th>
@@ -111,16 +110,75 @@ Use the <a href="/recsys_slates_dataset/dataset_torch.html#load_dataloaders"><co
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2021-07-03 21:13:13,672 Download data if not in data folder..
-2021-07-03 21:13:13,676 Downloading data.npz
-2021-07-03 21:13:13,691 Downloading ind2val.json
-2021-07-03 21:13:13,694 Downloading itemattr.npz
-2021-07-03 21:13:13,698 Done downloading all files.
-2021-07-03 21:13:13,707 Load data..
-2021-07-03 21:13:53,963 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
-2021-07-03 21:13:54,179 In train: num_users: 2277645, num_batches: 2225
-2021-07-03 21:13:54,187 In valid: num_users: 113882, num_batches: 112
-2021-07-03 21:13:54,192 In test: num_users: 113882, num_batches: 112
+<pre>2021-07-09 11:27:24,306 Download data if not in data folder..
+2021-07-09 11:27:24,307 Downloading data.npz
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Downloading 1VXKXIvPCJ7z4BCa4G_5-Q2XMAD7nXOc7 into dat/data.npz... </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-09 11:29:33,292 Downloading ind2val.json
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Done.
+Downloading 1WOCKfuttMacCb84yQYcRjxjEtgPp6F4N into dat/ind2val.json... </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-09 11:29:34,477 Downloading itemattr.npz
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Done.
+Downloading 1rKKyMQZqWp8vQ-Pl1SeHrQxzc5dXldnR into dat/itemattr.npz... </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-09 11:29:35,883 Done downloading all files.
+2021-07-09 11:29:35,884 Load data..
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Done.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2021-07-09 11:30:06,223 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
+2021-07-09 11:30:06,328 In train: num_users: 2277645, num_batches: 2225
+2021-07-09 11:30:06,329 In valid: num_users: 113882, num_batches: 112
+2021-07-09 11:30:06,329 In test: num_users: 113882, num_batches: 112
 </pre>
 </div>
 </div>
@@ -129,7 +187,7 @@ Use the <a href="/recsys_slates_dataset/dataset_torch.html#load_dataloaders"><co
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Dictionary containing the dataloaders:
-{&#39;train&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88da59a0&gt;, &#39;valid&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88dc6e80&gt;, &#39;test&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fcd88dc6550&gt;}
+{&#39;train&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7fab4044d3d0&gt;, &#39;valid&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7faaf1406050&gt;, &#39;test&#39;: &lt;torch.utils.data.dataloader.DataLoader object at 0x7faaf1405f50&gt;}
 </pre>
 </div>
 </div>
