@@ -2,7 +2,6 @@
 
 title: FINN.no Slate Dataset for Recommender Systems
 
-
 keywords: fastai
 sidebar: home_sidebar
 
@@ -34,10 +33,10 @@ nb_path: "index.ipynb"
 <p>We release the <em>FINN.no slate dataset</em> to improve recommender systems research.
 The dataset includes both search and recommendation interactions between users and the platform over a 30 day period.
 The dataset has logged both exposures and clicks, <em>including interactions where the user did not click on any of the items in the slate</em>.
-To our knowledge there exist no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.</p>
+To our knowledge there exists no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.</p>
 <p><img src="/recsys_slates_dataset/finn-frontpage.png" alt="A visualization of a presented slate to the user on the frontpage of FINN.no"></p>
 <p>For each user u and interaction step t we recorded all items in the visible slate <img src="https://latex.codecogs.com/gif.latex?a_t^u(s_t^u" alt="equ"> ) (up to the scroll length <img src="https://latex.codecogs.com/gif.latex?s_t^u" alt="equ">), and the user's click response <img src="https://latex.codecogs.com/gif.latex?c_t^u" alt="equ">.
-The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million  users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the <a href="https://arxiv.org/abs/2104.15046">paper</a>.</p>
+The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the <a href="https://arxiv.org/abs/2104.15046">paper</a>.</p>
 <p><img src="/recsys_slates_dataset/interaction_illustration.png" alt="A visualization of a presented slate to the user on the frontpage of FINN.no"></p>
 <p>FINN.no is the leading marketplace in the Norwegian classifieds market and provides users with a platform to buy and sell general merchandise, cars, real estate, as well as house rentals and job offerings.
 For questions, email simen.eide@finn.no or file an issue.</p>
@@ -80,12 +79,28 @@ For questions, email simen.eide@finn.no or file an issue.</p>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Download and prepare data into ready-to-use pytorch dataloaders:</p>
+<p>Download and prepare data into ready-to-use PyTorch dataloaders:</p>
 
 </div>
 </div>
@@ -107,10 +122,21 @@ For questions, email simen.eide@finn.no or file an issue.</p>
 <li>The code open sourced from the article <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> is found in (<code>code_eide_et_al21/</code>). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use <a href="https://github.com/finn-no/recsys-slates-dataset/tree/v1.0">the v1.0 release of the repository</a> for a compatible version of the code and dataset.</li>
 </ul>
 <h2>Quickstart dataset <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></h2>
-<p>We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
+<p>We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 It gives a quick introduction to how to use the dataset.</p>
-<h2 id="Citations">Citations<a class="anchor-link" href="#Citations"> </a></h2><p>This repository accompany the paper <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> by Simen Eide, David S. Leslie and Arnoldo Frigessi.
-The article is under review, and the pre-print can be obtained <a href="https://arxiv.org/abs/2104.15046">here</a>.</p>
+<h3 id="Dataset-files">Dataset files<a class="anchor-link" href="#Dataset-files"> </a></h3><p>The dataset <code>data.npz</code> contains the following fields:</p>
+<ul>
+<li>userId: The unique identifier of the user.</li>
+<li>click: The items the user clicked on in each of the 20 presented slates.</li>
+<li>click_idx: The index the clicked item was on in each of the 20 presented slates.</li>
+<li>slate_lengths: The length of the 20 presented slates.</li>
+<li>slate: All the items in each of the 20 presented slates.</li>
+<li>interaction_type: The recommendation slate can be the result of a search query (1), a recommendation (2) or can be undefined (0).</li>
+</ul>
+<p>The dataset <code>itemattr.npz</code> contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location.</p>
+<p>The dataset  <code>ind2val.json</code> contains the mapping between the indices and the values of the categories (e.g. <code>"287": "JOB, Rogaland"</code>) and interaction types (e.g. <code>"1": "search"</code>).</p>
+<h2 id="Citations">Citations<a class="anchor-link" href="#Citations"> </a></h2><p>This repository accompanies the paper <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> by Simen Eide, David S. Leslie and Arnoldo Frigessi.
+The article is under review, and the preprint can be obtained <a href="https://arxiv.org/abs/2104.15046">here</a>.</p>
 <p>If you use either the code, data or paper, please consider citing the paper.</p>
 
 <pre><code>@article{eide2021dynamic,
@@ -121,19 +147,20 @@ The article is under review, and the pre-print can be obtained <a href="https://
       archivePrefix={arXiv},
       primaryClass={stat.ML}
 }</code></pre>
-<h2 id="Todo">Todo<a class="anchor-link" href="#Todo"> </a></h2><p>This repository is currently <em>work in progress</em>, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available is welcome.
+<h2 id="Todo">Todo<a class="anchor-link" href="#Todo"> </a></h2><p>This repository is currently <em>work in progress</em>, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available are welcome.
 There are some features of the repository that we are working on:</p>
 <ul>
-<li>[x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data</li>
-<li>[x] Maintain a pytorch dataset for easy usage</li>
+<li>[x] Release the dataset as numpy objects instead of PyTorch arrays. This will help non-PyTorch users to more easily utilize the data</li>
+<li>[x] Maintain a PyTorch dataset for easy usage</li>
 <li>[x] Create a pip package for easier installation and usage. the package should download the dataset using a function.</li>
 <li>[x] Make the quickstart guide compatible with the pip package and numpy format.</li>
 <li>[ ] The git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is <a href="https://github.com/fastai/nbdev/issues/506">posted on nbdev</a>.</li>
-<li>[ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.</li>
-<li>[ ] Distribute the data on other platforms such as kaggle.</li>
-<li>[ ] Add a short description of the data in the readme.md directly.</li>
+<li>[ ] Add easily usable functions that compute relevant metrics such as hitrate, log-likelihood, etc.</li>
+<li>[ ] Distribute the data on other platforms such as Kaggle.</li>
+<li>[x] Add a short description of the data in the readme.md directly.</li>
+<li>[ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research </li>
 </ul>
-<p>As the current state is in early stage, it makes sense to allow the above changes non-backward compatible. 
+<p>As the current state is in an early stage, it makes sense to allow the above changes non-backward compatible. 
 However, this should be completed within the next couple of months.</p>
 
 </div>

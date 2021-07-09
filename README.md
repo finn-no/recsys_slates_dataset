@@ -5,12 +5,12 @@
 We release the *FINN.no slate dataset* to improve recommender systems research.
 The dataset includes both search and recommendation interactions between users and the platform over a 30 day period.
 The dataset has logged both exposures and clicks, *including interactions where the user did not click on any of the items in the slate*.
-To our knowledge there exist no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.
+To our knowledge there exists no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](finn-frontpage.png)
 
 For each user u and interaction step t we recorded all items in the visible slate ![equ](https://latex.codecogs.com/gif.latex?a_t^u(s_t^u) ) (up to the scroll length ![equ](https://latex.codecogs.com/gif.latex?s_t^u)), and the user's click response ![equ](https://latex.codecogs.com/gif.latex?c_t^u).
-The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million  users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the [paper](https://arxiv.org/abs/2104.15046).
+The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the [paper](https://arxiv.org/abs/2104.15046).
 
 ![A visualization of a presented slate to the user on the frontpage of FINN.no](interaction_illustration.png)
 
@@ -25,12 +25,12 @@ For questions, email simen.eide@finn.no or file an issue.
 
 To download the generic numpy data files:
 
-```
+```python
 from recsys_slates_dataset import datahelper
 datahelper.download_data_files(data_dir="data")
 ```
 
-Download and prepare data into ready-to-use pytorch dataloaders:
+Download and prepare data into ready-to-use PyTorch dataloaders:
 
 ``` python
 from recsys_slates_dataset import dataset_torch
@@ -43,12 +43,24 @@ The repository is organized as follows:
 - The code open sourced from the article ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) is found in (`code_eide_et_al21/`). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use [the v1.0 release of the repository](https://github.com/finn-no/recsys-slates-dataset/tree/v1.0) for a compatible version of the code and dataset.
 
 ## Quickstart dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb)
-We provide a quickstart jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
+We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 It gives a quick introduction to how to use the dataset.
 
+### Dataset files
+The dataset `data.npz` contains the following fields:
+- userId: The unique identifier of the user.
+- click: The items the user clicked on in each of the 20 presented slates.
+- click_idx: The index the clicked item was on in each of the 20 presented slates.
+- slate_lengths: The length of the 20 presented slates.
+- slate: All the items in each of the 20 presented slates.
+- interaction_type: The recommendation slate can be the result of a search query (1), a recommendation (2) or can be undefined (0).
+
+The dataset `itemattr.npz` contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location. 
+
+The dataset  `ind2val.json` contains the mapping between the indices and the values of the categories (e.g. `"287": "JOB, Rogaland"`) and interaction types (e.g. `"1": "search"`).                                                                                                                                                                  
 ## Citations
-This repository accompany the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
-The article is under review, and the pre-print can be obtained [here](https://arxiv.org/abs/2104.15046).
+This repository accompanies the paper ["Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"](https://arxiv.org/abs/2104.15046) by Simen Eide, David S. Leslie and Arnoldo Frigessi.
+The article is under review, and the preprint can be obtained [here](https://arxiv.org/abs/2104.15046).
 
 If you use either the code, data or paper, please consider citing the paper.
 
@@ -64,17 +76,18 @@ If you use either the code, data or paper, please consider citing the paper.
 ```
 
 ## Todo
-This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available is welcome.
+This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available are welcome.
 There are some features of the repository that we are working on:
 
-- [x] Release the dataset as numpy objects instead of pytorch arrays. This will help non-pytorch users to more easily utilize the data
-- [x] Maintain a pytorch dataset for easy usage
+- [x] Release the dataset as numpy objects instead of PyTorch arrays. This will help non-PyTorch users to more easily utilize the data
+- [x] Maintain a PyTorch dataset for easy usage
 - [x] Create a pip package for easier installation and usage. the package should download the dataset using a function.
 - [x] Make the quickstart guide compatible with the pip package and numpy format.
 - [ ] The git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is [posted on nbdev](https://github.com/fastai/nbdev/issues/506).
-- [ ] Add easily useable functions that compute relevant metrics such as hitrate, log-likelihood etc.
-- [ ] Distribute the data on other platforms such as kaggle.
-- [ ] Add a short description of the data in the readme.md directly.
+- [ ] Add easily usable functions that compute relevant metrics such as hitrate, log-likelihood, etc.
+- [ ] Distribute the data on other platforms such as Kaggle.
+- [x] Add a short description of the data in the readme.md directly.
+- [ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research 
 
-As the current state is in early stage, it makes sense to allow the above changes non-backward compatible. 
+As the current state is in an early stage, it makes sense to allow the above changes non-backward compatible. 
 However, this should be completed within the next couple of months.
