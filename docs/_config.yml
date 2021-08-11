@@ -7,7 +7,7 @@ description: Contains the presented items and whether and what the user clicked 
 # Set to false to disable KaTeX math
 use_math: true
 # Add Google analytics id if you have one and want to use it here
-google_analytics: G-RF10RLQV0F
+google_analytics: UA-11985295-2
 # See http://nbdev.fast.ai/search for help with adding Search
 google_search:
 
