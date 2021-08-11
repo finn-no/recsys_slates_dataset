@@ -14,13 +14,14 @@ logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
 
 class SequentialDataset(Dataset):
     '''
-     Note: displayType has been uncommented for future easy implementation.
     '''
     def __init__(self, data, sample_uniform_slate=False):
 
         self.data = data
         self.num_items = self.data['slate'].max()+1
         self.sample_uniform_slate = sample_uniform_slate
+        self.mask2ind = {'train' : 1, 'valid' : 2, 'test' : 3}
+
         logging.info(
             "Loading dataset with slate size={} and uniform candidate sampling={}"
             .format(self.data['slate'].size(), self.sample_uniform_slate))
@@ -76,30 +77,45 @@ def load_dataloaders(data_dir= "dat",
                 }
             )
 
-    # Split dataset into train, validation and test:
-    num_validusers = int(len(dataset) * valid_pct)
-    num_testusers = int(len(dataset) * test_pct)
+    num_users = len(data['click'])
+    num_validusers = int(num_users * valid_pct)
+    num_testusers = int(num_users * test_pct)
     torch.manual_seed(0)
-    num_users = len(dataset)
     perm_user = torch.randperm(num_users)
     valid_user_idx = perm_user[:num_validusers]
     test_user_idx  = perm_user[num_validusers:(num_validusers+num_testusers)]
     train_user_idx = perm_user[(num_validusers+num_testusers):]
-    # Mask type: 1: train, 2: valid, 3: test
-    dataset.data['mask_type'] = torch.ones_like(dataset.data['click'])
-    dataset.data['mask_type'][valid_user_idx, t_testsplit:] = 2
-    dataset.data['mask_type'][test_user_idx, t_testsplit:] = 3
 
-    subsets = {
-        'train': dataset,
-        'valid': torch.utils.data.Subset(dataset, valid_user_idx),
-        'test': torch.utils.data.Subset(dataset, test_user_idx)
+    # Split dictionary into train/valid/test with a phase mask that shows which interactions are in different sets
+    # (as some users have both train and valid data)
+    data_train = data
+    data_train['phase_mask'] = torch.ones_like(data['click']).bool()
+    data_train['phase_mask'][test_user_idx,t_testsplit:]=False
+    data_train['phase_mask'][valid_user_idx,t_testsplit:]=False
+
+    data_valid = {key: val[valid_user_idx] for key, val in data.items()}
+    data_valid['phase_mask'] = torch.zeros_like(data_valid['click']).bool()
+    data_valid['phase_mask'][:,t_testsplit:] = True
+
+    data_test = {key: val[test_user_idx] for key, val in data.items()}
+    data_test['phase_mask'] = torch.zeros_like(data_test['click']).bool()
+    data_test['phase_mask'][:,t_testsplit:] = True
+
+    data_dicts = {
+        "train" : data_train,
+        "valid" : data_valid,
+        "test" : data_test}
+
+    datasets = {
+        phase : SequentialDataset(data, sample_uniform_slate)
+        for phase, data in data_dicts.items()
         }
+
 
     # Build dataloaders for each data subset:
     dataloaders = {
         phase: DataLoader(ds, batch_size=batch_size, shuffle=(phase=="train"), num_workers=num_workers)
-        for phase, ds in subsets.items()
+        for phase, ds in datasets.items()
     }
     for key, dl in dataloaders.items():
         logging.info(

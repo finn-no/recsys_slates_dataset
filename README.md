@@ -25,7 +25,7 @@ For questions, email simen.eide@finn.no or file an issue.
 
 To download the generic numpy data files:
 
-```python
+```
 from recsys_slates_dataset import datahelper
 datahelper.download_data_files(data_dir="data")
 ```
