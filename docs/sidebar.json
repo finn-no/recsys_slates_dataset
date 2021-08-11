@@ -3,8 +3,8 @@
     "Overview": "/",
     "datahelper": "datahelper.html",
     "dataset_torch": "dataset_torch.html",
-    "Matrix Factorization example",
-    "Quick start with the FINN.no recsys slate dataset",
+    "Training Example: Matrix Factorization": "matrix_factorization.html",
+    "Quick start with the FINN.no recsys slate dataset": "quickstart-finn-recsys-slate-data.html",
     "lightning_helper": "lightning_helper.html"
   }
 }

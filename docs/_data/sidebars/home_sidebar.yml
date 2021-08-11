@@ -11,15 +11,15 @@ entries:
       url: /
     - output: web,pdf
       title: datahelper
-      url: /datahelper
+      url: datahelper.html
     - output: web,pdf
       title: dataset_torch
       url: dataset_torch.html
     - output: web,pdf
-      title: Matrix Factorization example [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/matrix_factorization.ipynb)
+      title: 'Training Example: Matrix Factorization'
       url: matrix_factorization.html
     - output: web,pdf
-      title: Quick start with the FINN.no recsys slate dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)
+      title: Quick start with the FINN.no recsys slate dataset
       url: quickstart-finn-recsys-slate-data.html
     - output: web,pdf
       title: lightning_helper
