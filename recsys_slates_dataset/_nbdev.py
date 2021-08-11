@@ -5,7 +5,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"download_data_files": "datahelper.ipynb",
          "SequentialDataset": "dataset_torch.ipynb",
          "load_dataloaders": "dataset_torch.ipynb",
-         "SlateDataModule": "lightninghelper.ipynb"}
+         "SlateDataModule": "lightning_helper.ipynb",
+         "CallbackPrintRecommendedCategory": "lightning_helper.ipynb"}
 
 modules = ["datahelper.py",
            "dataset_torch.py",

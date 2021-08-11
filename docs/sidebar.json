@@ -3,7 +3,8 @@
     "Overview": "/",
     "datahelper": "datahelper.html",
     "dataset_torch": "dataset_torch.html",
+    "Matrix Factorization example [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/matrix_factorization.ipynb)": "matrix_factorization.html",
     "Quick start with the FINN.no recsys slate dataset [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/quickstart-finn-recsys-slate-data.ipynb)": "quickstart-finn-recsys-slate-data.html",
-    "lightning_helper": "lightninghelper.html"
+    "lightning_helper": "lightning_helper.html"
   }
 }
