@@ -60,32 +60,6 @@ nb_path: "dataset_torch.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>data_dir= "dat"
-batch_size=1024
-num_workers= 0
-sample_uniform_slate=False
-valid_pct= 0.05
-test_pct= 0.05
-t_testsplit= 5</p>
-<p>logging.info('Load data..')
-with np.load("{}/data.npz".format(data_dir)) as data_np:
-    data = {key: torch.tensor(val) for key, val in data_np.items()}</p>
-<p>with open('{}/ind2val.json'.format(data_dir), 'rb') as handle:</p>
-
-<pre><code># Use string2int object_hook found here: https://stackoverflow.com/a/54112705
-ind2val = json.load(
-    handle, 
-    object_hook=lambda d: {
-        int(k) if k.lstrip('-').isdigit() else k: v 
-        for k, v in d.items()
-        }
-    )</code></pre>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
