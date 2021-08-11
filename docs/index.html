@@ -106,9 +106,12 @@ For questions, email simen.eide@finn.no or file an issue.</p>
 <li>The dataset is placed in <code>data/</code> and stored using git-lfs. We also provide an automatic download function in the pip package (preferred usage).</li>
 <li>The code open sourced from the article <a href="https://arxiv.org/abs/2104.15046">"Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling"</a> is found in (<code>code_eide_et_al21/</code>). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use <a href="https://github.com/finn-no/recsys-slates-dataset/tree/v1.0">the v1.0 release of the repository</a> for a compatible version of the code and dataset.</li>
 </ul>
-<h2>Quickstart dataset <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/master/examples/quickstart-finn-recsys-slate-data.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></h2>
+<h2>Quickstart dataset <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/main/examples/quickstart-finn-recsys-slate-data.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></h2>
 <p>We provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above.
 It gives a quick introduction to how to use the dataset.</p>
+<h2 id="Example-training-scripts">Example training scripts<a class="anchor-link" href="#Example-training-scripts"> </a></h2><p>We provide an example training jupyter notebook that implements a matrix factorization model with categorical loss that can be found in <code>examples/</code>.
+It is also runnable using Google Colab: <a href="https://colab.research.google.com/github/finn-no/recsys-slates-dataset/blob/main/examples/matrix_factorization.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="matrix_factorization.ipynb"></a><br>
+There is ongoing work in progress to build additional examples and use them as benchmarks for the dataset.</p>
 <h3 id="Dataset-files">Dataset files<a class="anchor-link" href="#Dataset-files"> </a></h3><p>The dataset <code>data.npz</code> contains the following fields:</p>
 <ul>
 <li>userId: The unique identifier of the user.</li>
