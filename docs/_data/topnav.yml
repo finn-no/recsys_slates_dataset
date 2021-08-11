@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/finn-no/recsys_slates_dataset/tree/nbdev/
+      external_url: https://github.com/finn-no/recsys_slates_dataset/tree/main/
 
 #Topnav dropdowns
 topnav_dropdowns:
