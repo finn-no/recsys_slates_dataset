@@ -26,8 +26,8 @@ For questions, email simen.eide@finn.no or file an issue.
 To download the generic numpy data files:
 
 ```
-from recsys_slates_dataset import datahelper
-datahelper.download_data_files(data_dir="data")
+from recsys_slates_dataset import data_helper
+data_helper.download_data_files(data_dir="data")
 ```
 
 Download and prepare data into ready-to-use PyTorch dataloaders:

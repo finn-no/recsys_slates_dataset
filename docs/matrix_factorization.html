@@ -53,6 +53,42 @@ nb_path: "examples/matrix_factorization.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;/mnt/personal/recsys_slates_dataset/examples&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
 
@@ -61,7 +97,7 @@ nb_path: "examples/matrix_factorization.ipynb"
     <span class="s1">&#39;dim&#39;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
     <span class="s1">&#39;batch_size&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e5</span><span class="p">),</span>
     <span class="s1">&#39;effective_batch_size&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="mf">2e6</span><span class="p">),</span>
-    <span class="s1">&#39;sample_uniform_slates&#39;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="c1"># If true, </span>
+    <span class="s1">&#39;sample_candidate_items&#39;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="c1"># If true, the dataloader adds an additional datapoint to each batch, &quot;allitem&quot;, which is randomly sampled items to be used as negative feedback</span>
     <span class="s1">&#39;num_epochs&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
     <span class="s1">&#39;overfit_batches&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
     <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="s1">&#39;MatrixFactorization-CategoricalLoss&#39;</span>
@@ -97,20 +133,19 @@ nb_path: "examples/matrix_factorization.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>2021-08-11 10:45:51,792 Load data..
-2021-08-11 10:45:51,793 Download data if not in data folder..
-2021-08-11 10:45:51,795 Downloading data.npz
-2021-08-11 10:45:51,795 Downloading ind2val.json
-2021-08-11 10:45:51,796 Downloading itemattr.npz
-2021-08-11 10:45:51,797 Done downloading all files.
-2021-08-11 10:45:51,798 Load data..
-2021-08-11 10:46:24,414 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
-2021-08-11 10:46:25,089 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False
-2021-08-11 10:46:25,104 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False
-2021-08-11 10:46:25,124 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False
-2021-08-11 10:46:25,126 In train: num_users: 2277645, num_batches: 23
-2021-08-11 10:46:25,127 In valid: num_users: 113882, num_batches: 2
-2021-08-11 10:46:25,128 In test: num_users: 113882, num_batches: 2
+<pre>2021-08-13 13:59:36,081 Load data..
+2021-08-13 13:59:36,082 Download data if not in data folder..
+2021-08-13 13:59:36,083 Downloading data.npz
+2021-08-13 13:59:36,083 Downloading ind2val.json
+2021-08-13 13:59:36,084 Downloading itemattr.npz
+2021-08-13 13:59:36,084 Done downloading all files.
+2021-08-13 13:59:36,084 Load data..
+2021-08-13 14:00:00,264 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and number of negative samples=4
+2021-08-13 14:00:00,269 Loading dataset with slate size=torch.Size([113882, 20, 25]) and number of negative samples=4
+2021-08-13 14:00:00,276 Loading dataset with slate size=torch.Size([113882, 20, 25]) and number of negative samples=4
+2021-08-13 14:00:00,278 In train: num_users: 2277645, num_batches: 23
+2021-08-13 14:00:00,278 In valid: num_users: 113882, num_batches: 2
+2021-08-13 14:00:00,279 In test: num_users: 113882, num_batches: 2
 </pre>
 </div>
 </div>
@@ -181,24 +216,30 @@ and $x*y$ is the inner product between $x$ and $y$.</p>
         <span class="c1"># Get user and item parameters:</span>
         <span class="c1"># Dimensions of tensors: [user/batch, interaction/step, item/slate, dim]</span>
         <span class="n">zetas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uservec</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;userId&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">v_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemvec</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;slate&#39;</span><span class="p">])</span>
+        <span class="c1"># Concatenate positive and negative items (first element is the positive one)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">batch</span><span class="p">[</span><span class="s1">&#39;allitem&#39;</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># find the parameters vector corresponding to each item in the batch:</span>
+        <span class="n">itemvecs_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemvec</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 
         <span class="c1"># Compute the similarity (dot product) between the users and items for all items in all slates:</span>
-        <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score_func</span><span class="p">(</span><span class="n">zetas</span><span class="p">,</span><span class="n">v_action</span><span class="p">)</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score_func</span><span class="p">(</span><span class="n">zetas</span><span class="p">,</span> <span class="n">itemvecs_batch</span><span class="p">)</span>
 
         <span class="c1"># Set effectively zero probability for special Ids (0 is pad and 2 is UNK).</span>
         <span class="c1"># These scores are log, so -100 is effectively 0: exp(-100)=4e-44</span>
-        <span class="n">scores</span><span class="p">[(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;slate&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;slate&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+        <span class="c1">#scores[(batch[&#39;slate&#39;] == 2) | (batch[&#39;slate&#39;] == 0)] = -100</span>
 
-        <span class="c1"># Flatten all Tensors to [user, slatelength]</span>
-        <span class="c1"># This simplifies the computation of the loss</span>
+        <span class="c1"># Flatten all Tensors to [user, slatelength] (This simplifies the computation of the loss)</span>
+        <span class="c1"># We flatten by using a masking tensor that also selects the relevant data.</span>
 
-        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;phase_mask&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
+        <span class="c1"># Mask out data that are in a different phase AND datapoints that did not result in any clicks:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;phase_mask&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;click&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">bool</span><span class="p">()</span>
+
         <span class="n">scores_flat</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
-        <span class="n">click_idx_flat</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="s1">&#39;click_idx&#39;</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
 
-        <span class="c1"># Compute the log likelihood of the observations:</span>
-        <span class="c1"># We use a categorical loss</span>
+        <span class="c1"># Compute the &quot;allitem&quot; log likelihood of the observations:</span>
+        <span class="c1"># We use a categorical loss where all our positive signals are in the first dimension:</span>
+        <span class="n">click_idx_flat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">scores_flat</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">loglik</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">scores_flat</span><span class="p">)</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">click_idx_flat</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">loglik</span>
     
@@ -273,11 +314,25 @@ and $x*y$ is the inner product between $x$ and $y$.</p>
 
         <span class="k">return</span> <span class="n">topk</span>
 
-
 <span class="n">model</span> <span class="o">=</span> <span class="n">MatrixFactorization</span><span class="p">(</span><span class="n">num_items</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">num_items</span><span class="p">,</span> <span class="n">num_users</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">num_users</span><span class="p">,</span> <span class="o">**</span><span class="n">param</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/conda/envs/pytorch/lib/python3.8/site-packages/ipykernel/ipkernel.py:283: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
+  and should_run_async(code)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -303,6 +358,21 @@ and $x*y$ is the inner product between $x$ and $y$.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/conda/envs/pytorch/lib/python3.8/site-packages/ipykernel/ipkernel.py:283: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
+  and should_run_async(code)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -343,6 +413,10 @@ and $x*y$ is the inner product between $x$ and $y$.</p>
 <pre>GPU available: True, used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
+2021-08-13 14:19:59,142 Downloading data.npz
+2021-08-13 14:19:59,142 Downloading ind2val.json
+2021-08-13 14:19:59,143 Downloading itemattr.npz
+2021-08-13 14:19:59,143 Done downloading all files.
 /opt/conda/envs/pytorch/lib/python3.8/site-packages/pytorch_lightning/core/datamodule.py:423: LightningDeprecationWarning: DataModule.setup has already been called, so it will not be called again. In v1.6 this behavior will change to always call DataModule.setup.
   rank_zero_deprecation(
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
@@ -357,6 +431,14 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
 0         Non-trainable params
 32.3 M    Total params
 129.222   Total estimated model params size (MB)
+/opt/conda/envs/pytorch/lib/python3.8/site-packages/pytorch_lightning/trainer/data_loading.py:105: UserWarning: The dataloader, val dataloader 0, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/opt/conda/envs/pytorch/lib/python3.8/site-packages/pytorch_lightning/trainer/data_loading.py:105: UserWarning: The dataloader, train dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 12 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+/opt/conda/envs/pytorch/lib/python3.8/site-packages/pytorch_lightning/trainer/data_loading.py:322: UserWarning: The number of training samples (23) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+  rank_zero_warn(
+/opt/conda/envs/pytorch/lib/python3.8/site-packages/pytorch_lightning/trainer/trainer.py:1047: UserWarning: Detected KeyboardInterrupt, attempting graceful shutdown...
+  rank_zero_warn(&#34;Detected KeyboardInterrupt, attempting graceful shutdown...&#34;)
 </pre>
 </div>
 </div>

@@ -2,13 +2,13 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"download_data_files": "datahelper.ipynb",
+index = {"download_data_files": "data_helper.ipynb",
          "SequentialDataset": "dataset_torch.ipynb",
          "load_dataloaders": "dataset_torch.ipynb",
          "SlateDataModule": "lightning_helper.ipynb",
          "CallbackPrintRecommendedCategory": "lightning_helper.ipynb"}
 
-modules = ["datahelper.py",
+modules = ["data_helper.py",
            "dataset_torch.py",
            "lightning_helper.py"]
 

@@ -4,7 +4,7 @@ __all__ = ['SequentialDataset', 'load_dataloaders']
 
 # Cell
 import torch
-import recsys_slates_dataset.datahelper as datahelper
+import recsys_slates_dataset.data_helper as data_helper
 from torch.utils.data import Dataset, DataLoader
 import torch
 import json
@@ -13,34 +13,36 @@ import logging
 logging.basicConfig(format='%(asctime)s %(message)s', level='INFO')
 
 class SequentialDataset(Dataset):
+    ''' A Pytorch Dataset for the FINN Recsys Slates Dataset.
+    Attributes:
+      data: [Dict] A dictionary with tensors of the dataset. First dimension in each tensor must be the batch dimension. Requires the keys "click" and "slate". Additional elements can be added.
+      sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item "allitem". Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
     '''
-    '''
-    def __init__(self, data, sample_uniform_slate=False):
+    def __init__(self, data, sample_candidate_items=0):
 
         self.data = data
         self.num_items = self.data['slate'].max()+1
-        self.sample_uniform_slate = sample_uniform_slate
+        self.sample_candidate_items = sample_candidate_items
         self.mask2ind = {'train' : 1, 'valid' : 2, 'test' : 3}
 
         logging.info(
-            "Loading dataset with slate size={} and uniform candidate sampling={}"
-            .format(self.data['slate'].size(), self.sample_uniform_slate))
+            "Loading dataset with slate size={} and number of negative samples={}"
+            .format(self.data['slate'].size(), self.sample_candidate_items))
+
+        # Performs some checks on the dataset to make sure it is valid:
+        assert "slate" in data.keys(), "Slate tensor is not in dataset. This is required."
+        assert "click" in data.keys(), "Click tensor is not in dataset. This is required."
+        assert all([val.size(0)==data['slate'].size(0) for key, val in data.items()]), "Not all data tensors have the same batch dimension"
 
     def __getitem__(self, idx):
         batch = {key: val[idx] for key, val in self.data.items()}
 
-        if self.sample_uniform_slate:
-            # Sample actions uniformly:
-            action = torch.randint_like(batch['slate'], low=3, high=self.num_items)
-
-            # Add noclick action at pos0
-            # and the actual click action at pos 1 (unless noclick):
-            action[:,0] = 1
-            clicked = batch['click']!=1
-            action[:,1][clicked] = batch['click'][clicked]
-            batch['slate'] = action
-            # Set click idx to 0 if noclick, and 1 otherwise:
-            batch['click_idx'] = clicked.long()
+        if self.sample_candidate_items:
+            # Sample actions uniformly (3 is the first non-special item)
+            batch['allitem'] = torch.randint(
+                size=(batch['click'].size(0), self.sample_candidate_items),
+                low=3, high=self.num_items, device = batch['click'].device
+                )
 
         return batch
 
@@ -51,21 +53,32 @@ class SequentialDataset(Dataset):
 def load_dataloaders(data_dir= "dat",
                      batch_size=1024,
                      num_workers= 0,
-                     sample_uniform_slate=False,
+                     sample_candidate_items=False,
                      valid_pct= 0.05,
                      test_pct= 0.05,
-                     t_testsplit= 5):
+                     t_testsplit= 5,
+                     seed=0):
     """
-    Loads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021
+    Loads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021.
+
+    Attributes:
+      data_dir: [str] where download and store data if not already downloaded.
+      batch_size: [int] Batch size given by dataloaders.
+      num_workers: [int] How many threads should be used to prepare batches of data.
+      sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item "allitem". Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
+      valid_pct: [float] Percentage of users allocated to validation dataset.
+      test_pct: [float] Percentage of users allocated to test dataset.
+      t_testsplit: [int] For users allocated to validation and test datasets, how many initial interactions should be part of the training dataset.
+      seed: [int] Seed used to sample users/items.
+
     """
 
     logging.info("Download data if not in data folder..")
-    datahelper.download_data_files(data_dir=data_dir)
+    data_helper.download_data_files(data_dir=data_dir)
 
     logging.info('Load data..')
     with np.load("{}/data.npz".format(data_dir)) as data_np:
         data = {key: torch.tensor(val) for key, val in data_np.items()}
-    dataset = SequentialDataset(data, sample_uniform_slate)
 
     with open('{}/ind2val.json'.format(data_dir), 'rb') as handle:
         # Use string2int object_hook found here: https://stackoverflow.com/a/54112705
@@ -80,7 +93,7 @@ def load_dataloaders(data_dir= "dat",
     num_users = len(data['click'])
     num_validusers = int(num_users * valid_pct)
     num_testusers = int(num_users * test_pct)
-    torch.manual_seed(0)
+    torch.manual_seed(seed)
     perm_user = torch.randperm(num_users)
     valid_user_idx = perm_user[:num_validusers]
     test_user_idx  = perm_user[num_validusers:(num_validusers+num_testusers)]
@@ -107,7 +120,7 @@ def load_dataloaders(data_dir= "dat",
         "test" : data_test}
 
     datasets = {
-        phase : SequentialDataset(data, sample_uniform_slate)
+        phase : SequentialDataset(data, sample_candidate_items)
         for phase, data in data_dicts.items()
         }
 
