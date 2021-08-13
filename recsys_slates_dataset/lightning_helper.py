@@ -4,7 +4,7 @@ __all__ = ['SlateDataModule', 'CallbackPrintRecommendedCategory']
 
 # Cell
 import recsys_slates_dataset.dataset_torch as dataset_torch
-import recsys_slates_dataset.datahelper as datahelper
+import recsys_slates_dataset.data_helper as data_helper
 import pytorch_lightning as pl
 import logging
 class SlateDataModule(pl.LightningDataModule):
@@ -16,7 +16,7 @@ class SlateDataModule(pl.LightningDataModule):
         data_dir= "dat",
         batch_size=1024,
         num_workers= 0,
-        sample_uniform_slate=False,
+        sample_uniform_items=False,
         valid_pct= 0.05,
         test_pct= 0.05,
         t_testsplit= 5, *args, **kwargs):
@@ -25,7 +25,7 @@ class SlateDataModule(pl.LightningDataModule):
         self.data_dir = data_dir
         self.batch_size = batch_size
         self.num_workers =num_workers
-        self.sample_uniform_slate=sample_uniform_slate
+        self.sample_uniform_items=sample_uniform_items
         self.valid_pct=valid_pct
         self.test_pct=test_pct
         self.t_testsplit=t_testsplit
@@ -33,7 +33,7 @@ class SlateDataModule(pl.LightningDataModule):
         """
         Download data to disk if not already downloaded.
         """
-        datahelper.download_data_files(data_dir=self.data_dir)
+        data_helper.download_data_files(data_dir=self.data_dir)
 
     def setup(self, stage=None, num_negative_queries=0):
 
@@ -42,7 +42,7 @@ class SlateDataModule(pl.LightningDataModule):
             data_dir= self.data_dir,
             batch_size=self.batch_size,
             num_workers= self.num_workers,
-            sample_uniform_slate=self.sample_uniform_slate,
+            sample_uniform_items=self.sample_uniform_items,
             valid_pct= self.valid_pct,
             test_pct= self.test_pct,
             t_testsplit= self.t_testsplit)

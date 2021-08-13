@@ -1,7 +1,7 @@
 {
   "recsys_slates_dataset": {
     "Overview": "/",
-    "datahelper": "datahelper.html",
+    "datahelper": "data_helper.html",
     "dataset_torch": "dataset_torch.html",
     "Training Example: Matrix Factorization": "matrix_factorization.html",
     "Quick start with the FINN.no recsys slate dataset": "quickstart-finn-recsys-slate-data.html",
