@@ -16,9 +16,9 @@ class SequentialDataset(Dataset):
     ''' A Pytorch Dataset for the FINN Recsys Slates Dataset.
     Attributes:
       data: [Dict] A dictionary with tensors of the dataset. First dimension in each tensor must be the batch dimension. Requires the keys "click" and "slate". Additional elements can be added.
-      sample_candidate_items: [Bool] If true, the dataset provide an additional dictionary item "allitem". This datapoint is uniformly random negative examples on the same size of the slate dataset. Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
+      sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item "allitem". Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
     '''
-    def __init__(self, data, sample_candidate_items=False):
+    def __init__(self, data, sample_candidate_items=0):
 
         self.data = data
         self.num_items = self.data['slate'].max()+1
@@ -26,7 +26,7 @@ class SequentialDataset(Dataset):
         self.mask2ind = {'train' : 1, 'valid' : 2, 'test' : 3}
 
         logging.info(
-            "Loading dataset with slate size={} and uniform candidate sampling={}"
+            "Loading dataset with slate size={} and number of negative samples={}"
             .format(self.data['slate'].size(), self.sample_candidate_items))
 
         # Performs some checks on the dataset to make sure it is valid:
@@ -38,17 +38,11 @@ class SequentialDataset(Dataset):
         batch = {key: val[idx] for key, val in self.data.items()}
 
         if self.sample_candidate_items:
-            # Sample actions uniformly:
-            action = torch.randint_like(batch['slate'], low=3, high=self.num_items)
-
-            # Add noclick action at pos0
-            # and the actual click action at pos 1 (unless noclick):
-            action[:,0] = 1
-            clicked = batch['click']!=1
-            action[:,1][clicked] = batch['click'][clicked]
-            batch['allitem'] = action
-            # Set click idx to 0 if noclick, and 1 otherwise:
-            batch['click_idx'] = clicked.long()
+            # Sample actions uniformly (3 is the first non-special item)
+            batch['allitem'] = torch.randint(
+                size=(batch['click'].size(0), self.sample_candidate_items),
+                low=3, high=self.num_items, device = batch['click'].device
+                )
 
         return batch
 
@@ -71,7 +65,7 @@ def load_dataloaders(data_dir= "dat",
       data_dir: [str] where download and store data if not already downloaded.
       batch_size: [int] Batch size given by dataloaders.
       num_workers: [int] How many threads should be used to prepare batches of data.
-      sample_candidate_items: [Bool] If true, the dataset provide an additional dictionary item "allitem". This datapoint is uniformly random negative examples on the same size of the slate dataset. Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
+      sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item "allitem". Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.
       valid_pct: [float] Percentage of users allocated to validation dataset.
       test_pct: [float] Percentage of users allocated to test dataset.
       t_testsplit: [int] For users allocated to validation and test datasets, how many initial interactions should be part of the training dataset.
@@ -85,7 +79,6 @@ def load_dataloaders(data_dir= "dat",
     logging.info('Load data..')
     with np.load("{}/data.npz".format(data_dir)) as data_np:
         data = {key: torch.tensor(val) for key, val in data_np.items()}
-    dataset = SequentialDataset(data, sample_candidate_items)
 
     with open('{}/ind2val.json'.format(data_dir), 'rb') as handle:
         # Use string2int object_hook found here: https://stackoverflow.com/a/54112705
