@@ -157,4 +157,4 @@ class Hitrate(pl.Callback):
     def on_train_epoch_end(self, trainer, pl_module):
         if trainer.current_epoch % self.report_interval==0:
             hitrate = self.calc_hitrate(pl_module)
-            trainer.logger.experiment.add_scalar('test/hitrate', hitrate, global_step=trainer.global_step)
+            trainer.logger.experiment.add_scalar(f'test/hitrate_{self.num_rec}', hitrate, global_step=trainer.global_step)
