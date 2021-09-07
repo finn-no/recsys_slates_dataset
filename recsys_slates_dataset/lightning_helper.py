@@ -19,7 +19,9 @@ class SlateDataModule(pl.LightningDataModule):
         sample_candidate_items=0,
         valid_pct= 0.05,
         test_pct= 0.05,
-        t_testsplit= 5, *args, **kwargs):
+        t_testsplit= 5,
+        limit_num_users=None,
+        *args, **kwargs):
 
         super().__init__()
         self.data_dir = data_dir
@@ -29,6 +31,7 @@ class SlateDataModule(pl.LightningDataModule):
         self.valid_pct=valid_pct
         self.test_pct=test_pct
         self.t_testsplit=t_testsplit
+        self.limit_num_users = limit_num_users
     def prepare_data(self):
         """
         Download data to disk if not already downloaded.
@@ -45,7 +48,8 @@ class SlateDataModule(pl.LightningDataModule):
             sample_candidate_items=self.sample_candidate_items,
             valid_pct= self.valid_pct,
             test_pct= self.test_pct,
-            t_testsplit= self.t_testsplit)
+            t_testsplit= self.t_testsplit,
+            limit_num_users=self.limit_num_users)
 
 
         # Add some descriptive stats to the dataset as variables for easy access later:

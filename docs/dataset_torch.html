@@ -75,7 +75,7 @@ Attributes:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_dataloaders" class="doc_header"><code>load_dataloaders</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/dataset_torch.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_dataloaders</code>(<strong><code>data_dir</code></strong>=<em><code>'dat'</code></em>, <strong><code>batch_size</code></strong>=<em><code>1024</code></em>, <strong><code>num_workers</code></strong>=<em><code>0</code></em>, <strong><code>sample_candidate_items</code></strong>=<em><code>False</code></em>, <strong><code>valid_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>test_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>t_testsplit</code></strong>=<em><code>5</code></em>, <strong><code>seed</code></strong>=<em><code>0</code></em>)</p>
+<h4 id="load_dataloaders" class="doc_header"><code>load_dataloaders</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/dataset_torch.py#L53" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_dataloaders</code>(<strong><code>data_dir</code></strong>=<em><code>'dat'</code></em>, <strong><code>batch_size</code></strong>=<em><code>1024</code></em>, <strong><code>num_workers</code></strong>=<em><code>0</code></em>, <strong><code>sample_candidate_items</code></strong>=<em><code>False</code></em>, <strong><code>valid_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>test_pct</code></strong>=<em><code>0.05</code></em>, <strong><code>t_testsplit</code></strong>=<em><code>5</code></em>, <strong><code>limit_num_users</code></strong>=<em><code>None</code></em>, <strong><code>seed</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
 <p>Loads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021.</p>
 <p>Attributes:
@@ -86,6 +86,7 @@ Attributes:
   valid_pct: [float] Percentage of users allocated to validation dataset.
   test_pct: [float] Percentage of users allocated to test dataset.
   t_testsplit: [int] For users allocated to validation and test datasets, how many initial interactions should be part of the training dataset.
+  limit_num_users: [int] For debugging purposes, only return some users.
   seed: [int] Seed used to sample users/items.</p>
 
 </div>

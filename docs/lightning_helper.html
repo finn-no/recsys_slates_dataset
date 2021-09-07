@@ -81,7 +81,7 @@ nb_path: "lightning_helper.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CallbackPrintRecommendedCategory" class="doc_header"><code>class</code> <code>CallbackPrintRecommendedCategory</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L69" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CallbackPrintRecommendedCategory</code>(<strong><code>dm</code></strong>, <strong><code>num_recs</code></strong>=<em><code>2</code></em>, <strong><code>max_interactions</code></strong>=<em><code>10</code></em>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>) :: <code>Callback</code></p>
+<h2 id="CallbackPrintRecommendedCategory" class="doc_header"><code>class</code> <code>CallbackPrintRecommendedCategory</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L73" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CallbackPrintRecommendedCategory</code>(<strong><code>dm</code></strong>, <strong><code>num_recs</code></strong>=<em><code>2</code></em>, <strong><code>max_interactions</code></strong>=<em><code>10</code></em>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>A pytorch lightning callback that prints the clicks the user did, and the top recommendations at a given interaction.</p>
 
@@ -113,7 +113,7 @@ nb_path: "lightning_helper.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Hitrate" class="doc_header"><code>class</code> <code>Hitrate</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L122" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Hitrate</code>(<strong><code>dm</code></strong>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>, <strong><code>num_rec</code></strong>=<em><code>10</code></em>) :: <code>Callback</code></p>
+<h2 id="Hitrate" class="doc_header"><code>class</code> <code>Hitrate</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L126" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Hitrate</code>(<strong><code>dm</code></strong>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>, <strong><code>num_rec</code></strong>=<em><code>10</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Module computing hitrate over the test dataset.
 NB: This assumes that recommendations does not change over time.

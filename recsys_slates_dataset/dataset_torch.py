@@ -57,6 +57,7 @@ def load_dataloaders(data_dir= "dat",
                      valid_pct= 0.05,
                      test_pct= 0.05,
                      t_testsplit= 5,
+                     limit_num_users=None,
                      seed=0):
     """
     Loads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021.
@@ -69,6 +70,7 @@ def load_dataloaders(data_dir= "dat",
       valid_pct: [float] Percentage of users allocated to validation dataset.
       test_pct: [float] Percentage of users allocated to test dataset.
       t_testsplit: [int] For users allocated to validation and test datasets, how many initial interactions should be part of the training dataset.
+      limit_num_users: [int] For debugging purposes, only return some users.
       seed: [int] Seed used to sample users/items.
 
     """
@@ -79,6 +81,10 @@ def load_dataloaders(data_dir= "dat",
     logging.info('Load data..')
     with np.load("{}/data.npz".format(data_dir)) as data_np:
         data = {key: torch.tensor(val) for key, val in data_np.items()}
+
+    if limit_num_users is not None:
+        logging.info("Limiting dataset to only return the first {} users.".format(limit_num_users))
+        data = {key : val[:limit_num_users] for key, val in data.items()}
 
     with open('{}/ind2val.json'.format(data_dir), 'rb') as handle:
         # Use string2int object_hook found here: https://stackoverflow.com/a/54112705
