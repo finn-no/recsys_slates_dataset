@@ -135,6 +135,9 @@ class Hitrate(pl.Callback):
 
     @torch.no_grad()
     def calc_hits_in_batch(self, batch, pl_module):
+        # Move batch data to model device:
+        batch = {key: val.to(pl_module.device) for key, val in batch.items()}
+
         batch_recs = pl_module.recommend_batch(batch,num_rec= self.num_rec,t_rec=-1).detach().cpu()
         positive_clicks = (batch['click']*batch['phase_mask']).detach().cpu()
 
