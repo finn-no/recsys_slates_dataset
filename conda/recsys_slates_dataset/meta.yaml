@@ -1,9 +1,9 @@
 package:
   name: recsys_slates_dataset
-  version: 0.0.3
+  version: 0.0.6
 source:
-  sha256: 8c990a3f47a5286d631a0073292e12e908b39f7086291a4cb5c5ca350f60a323
-  url: https://files.pythonhosted.org/packages/2a/52/0796014837643169b4ce1b57f2c09b61b8e3be9efbe860295c5f995e0c9a/recsys_slates_dataset-0.0.3.tar.gz
+  sha256: 0ebd0a47a9ab661b57f530abfea05e5b0e4a43d436caaabd2845a12d22967b34
+  url: https://files.pythonhosted.org/packages/66/84/b6860cf27032d1249828a953d767ab7b0ea637e62c7c66500c5aee92b61c/recsys_slates_dataset-0.0.6.tar.gz
 about:
   dev_url: http://opensource.finn.no
   doc_url: http://opensource.finn.no
@@ -27,9 +27,10 @@ requirements:
   - requests>=2.25.1
   - numpy>=1.19.5
   - pandas>=1.0.5
-  - torch>=1.6.0
+  - torch>=1.9.0
   - PyYAML==5.4.1
   - googledrivedownloader==0.4
+  - pytorch-lightning==1.4.1
   run:
   - pip
   - python
@@ -37,9 +38,10 @@ requirements:
   - requests>=2.25.1
   - numpy>=1.19.5
   - pandas>=1.0.5
-  - torch>=1.6.0
+  - torch>=1.9.0
   - PyYAML==5.4.1
   - googledrivedownloader==0.4
+  - pytorch-lightning==1.4.1
 test:
   imports:
   - recsys_slates_dataset

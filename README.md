@@ -84,15 +84,7 @@ If you use either the code, data or paper, please consider citing the paper.
 This repository is currently *work in progress*, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available are welcome.
 There are some features of the repository that we are working on:
 
-- [x] Release the dataset as numpy objects instead of PyTorch arrays. This will help non-PyTorch users to more easily utilize the data
-- [x] Maintain a PyTorch dataset for easy usage
-- [x] Create a pip package for easier installation and usage. the package should download the dataset using a function.
-- [x] Make the quickstart guide compatible with the pip package and numpy format.
+- [ ] Add more usable functions that compute relevant metrics such as F1, counterfactual metrics etc.
+- [ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research
 - [ ] The git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is [posted on nbdev](https://github.com/fastai/nbdev/issues/506).
-- [ ] Add easily usable functions that compute relevant metrics such as hitrate, log-likelihood, etc.
-- [ ] Distribute the data on other platforms such as Kaggle.
-- [x] Add a short description of the data in the readme.md directly.
-- [ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research 
-
-As the current state is in an early stage, it makes sense to allow the above changes non-backward compatible. 
-However, this should be completed within the next couple of months.
+- [ ] 
