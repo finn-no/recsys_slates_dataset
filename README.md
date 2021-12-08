@@ -25,7 +25,7 @@ For questions, email simen.eide@finn.no or file an issue.
 
 To download the generic numpy data files:
 
-```
+```python
 from recsys_slates_dataset import data_helper
 data_helper.download_data_files(data_dir="data")
 ```
@@ -85,6 +85,4 @@ This repository is currently *work in progress*, and we will provide description
 There are some features of the repository that we are working on:
 
 - [ ] Add more usable functions that compute relevant metrics such as F1, counterfactual metrics etc.
-- [ ] Add link to the paper: A new sequential dataset logging interactions, all viewed items and click responses/no-click for recommender systems research
 - [ ] The git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is [posted on nbdev](https://github.com/fastai/nbdev/issues/506).
-- [ ] 
