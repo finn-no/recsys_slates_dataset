@@ -93,7 +93,7 @@ class CallbackPrintRecommendedCategory(pl.Callback):
                 M = torch.zeros(self.num_recs+1, self.max_interactions)
                 M[0,:] = smallbatch['click'].flatten()[:self.max_interactions] # add view to first row
                 for t_rec in range(self.max_interactions):
-                    scores = pl_module.forward_items(smallbatch, t_rec=t_rec)
+                    scores = pl_module.forward(smallbatch)
                     vals, rec_ids = scores.topk(self.num_recs)
                     M[1:, t_rec] = rec_ids
 
