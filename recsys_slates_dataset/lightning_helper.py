@@ -128,10 +128,11 @@ class Hitrate(pl.Callback):
     NB: This assumes that recommendations does not change over time.
     I.e. will not work on temporal models.
     """
-    def __init__(self,dm, report_interval=100, num_rec=10):
+    def __init__(self,dm, report_interval=100, num_rec=10, remove_already_clicked=True):
         self.dm=dm
         self.report_interval = report_interval
         self.num_rec = num_rec
+        self.remove_already_clicked = remove_already_clicked
 
     @torch.no_grad()
     def calc_hits_in_batch(self, batch, pl_module):
@@ -139,6 +140,16 @@ class Hitrate(pl.Callback):
         batch = {key: val.to(pl_module.device) for key, val in batch.items()}
 
         batch_recs = pl_module.recommend_batch(batch,num_rec= self.num_rec,t_rec=-1).detach().cpu()
+
+        # If a recommendation already appears in the training click sequence, remove it from recommendations.
+        # It is removed by setting the recommendation to a negative number ( :rolling_eyes:, i know),
+        # which will not be counted. This makes it faster&paralleizeable in the np.intersect1d part.
+        if self.remove_already_clicked:
+            dont_count_clicks = (batch['click']*(~batch['phase_mask'])).detach().cpu()
+            for n in range(batch_recs.size(1)):
+                rec_clicked_item = (batch_recs[:,n].unsqueeze(1)==dont_count_clicks).max(dim=1)[0]
+                batch_recs[rec_clicked_item,n] = -(1+n)
+
         positive_clicks = (batch['click']*batch['phase_mask']).detach().cpu()
 
         hits_in_batch = 0
