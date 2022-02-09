@@ -104,7 +104,7 @@ nb_path: "lightning_helper.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Hitrate" class="doc_header"><code>class</code> <code>Hitrate</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L126" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Hitrate</code>(<strong><code>dm</code></strong>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>, <strong><code>num_rec</code></strong>=<em><code>10</code></em>) :: <code>Callback</code></p>
+<h2 id="Hitrate" class="doc_header"><code>class</code> <code>Hitrate</code><a href="https://github.com/finn-no/recsys_slates_dataset/tree/main/recsys_slates_dataset/lightning_helper.py#L126" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Hitrate</code>(<strong><code>dm</code></strong>, <strong><code>report_interval</code></strong>=<em><code>100</code></em>, <strong><code>num_rec</code></strong>=<em><code>10</code></em>, <strong><code>remove_already_clicked</code></strong>=<em><code>True</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Module computing hitrate over the test dataset.
 NB: This assumes that recommendations does not change over time.
@@ -152,19 +152,17 @@ I.e. will not work on temporal models.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/envs/pytorch/lib/python3.8/site-packages/ipykernel/ipkernel.py:283: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above.
-  and should_run_async(code)
-2021-07-06 11:24:50,376 Downloading data.npz
-2021-07-06 11:24:50,377 Downloading ind2val.json
-2021-07-06 11:24:50,378 Downloading itemattr.npz
-2021-07-06 11:24:50,378 Done downloading all files.
-2021-07-06 11:24:50,379 Load data..
-2021-07-06 11:24:50,379 Download data if not in data folder..
-2021-07-06 11:24:50,379 Downloading data.npz
-2021-07-06 11:24:50,380 Downloading ind2val.json
-2021-07-06 11:24:50,381 Downloading itemattr.npz
-2021-07-06 11:24:50,381 Done downloading all files.
-2021-07-06 11:24:50,381 Load data..
+<pre>2022-02-07 15:00:59,535 Downloading data.npz
+2022-02-07 15:00:59,536 Downloading ind2val.json
+2022-02-07 15:00:59,536 Downloading itemattr.npz
+2022-02-07 15:00:59,537 Done downloading all files.
+2022-02-07 15:00:59,538 Load data..
+2022-02-07 15:00:59,538 Download data if not in data folder..
+2022-02-07 15:00:59,539 Downloading data.npz
+2022-02-07 15:00:59,539 Downloading ind2val.json
+2022-02-07 15:00:59,540 Downloading itemattr.npz
+2022-02-07 15:00:59,541 Done downloading all files.
+2022-02-07 15:00:59,541 Load data..
 </pre>
 </div>
 </div>
