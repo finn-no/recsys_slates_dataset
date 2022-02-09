@@ -148,7 +148,7 @@ class Hitrate(pl.Callback):
             dont_count_clicks = (batch['click']*(~batch['phase_mask'])).detach().cpu()
             for n in range(batch_recs.size(1)):
                 rec_clicked_item = (batch_recs[:,n].unsqueeze(1)==dont_count_clicks).max(dim=1)[0]
-                batch_recs[rec_clicked_item,n] = -(1+n)
+                batch_recs[rec_clicked_item,n] = -1
 
         positive_clicks = (batch['click']*batch['phase_mask']).detach().cpu()
 
