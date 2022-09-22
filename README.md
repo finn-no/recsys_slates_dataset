@@ -110,14 +110,8 @@ preprint can be obtained [here](https://arxiv.org/abs/2104.15046).
 If you use either the code, data or paper, please consider citing the
 paper.
 
-    @article{eide2021dynamic,
-          title={Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling}, 
-          author={Simen Eide and David S. Leslie and Arnoldo Frigessi},
-          year={2021},
-          eprint={2104.15046},
-          archivePrefix={arXiv},
-          primaryClass={stat.ML}
-    }
+Eide, S., Leslie, D.S. & Frigessi, A. Dynamic slate recommendation with gated recurrent units and Thompson sampling. Data Min Knowl Disc (2022). https://doi.org/10.1007/s10618-022-00849-w
+```
 
 ## Todo
 
