@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "recsys_slates_dataset"
+  site-url: "http://opensource.finn.no/recsys_slates_dataset/"
+  description: "Recommender Systems Dataset from FINN.no containing the presented items and whether and what the user clicked on."
+  repo-branch: main
+  repo-url: "https://github.com/finn-no/recsys_slates_dataset/tree/main/"

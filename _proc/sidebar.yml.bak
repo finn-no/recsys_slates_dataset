@@ -1,0 +1,7 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - data_helper.ipynb
+      - dataset_torch.ipynb
+      - lightning_helper.ipynb
