@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "dataset_torch.html",
+    "href": "dataset_torch.html",
+    "title": "dataset_torch",
+    "section": "",
+    "text": "source\n\nSequentialDataset\n\n SequentialDataset (data, sample_candidate_items=0)\n\nA Pytorch Dataset for the FINN Recsys Slates Dataset. Attributes: data: [Dict] A dictionary with tensors of the dataset. First dimension in each tensor must be the batch dimension. Requires the keys “click” and “slate”. Additional elements can be added. sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item “allitem”. Often also called uniform candidate sampling. See Eide et. al. 2021 for more information.\n\nsource\n\n\nload_dataloaders\n\n load_dataloaders (data_dir='dat', batch_size=1024, num_workers=0,\n                   sample_candidate_items=False, valid_pct=0.05,\n                   test_pct=0.05, t_testsplit=5, limit_num_users=None,\n                   seed=0)\n\nLoads pytorch dataloaders to be used in training. If used with standard settings, the train/val/test split is equivalent to Eide et. al. 2021.\nAttributes: data_dir: [str] where download and store data if not already downloaded. batch_size: [int] Batch size given by dataloaders. num_workers: [int] How many threads should be used to prepare batches of data. sample_candidate_items: [int] Number of negative item examples sampled from the item universe for each interaction. If positive, the dataset provide an additional dictionary item “allitem”. Often also called uniform candidate sampling. See Eide et. al. 2021 for more information. valid_pct: [float] Percentage of users allocated to validation dataset. test_pct: [float] Percentage of users allocated to test dataset. t_testsplit: [int] For users allocated to validation and test datasets, how many initial interactions should be part of the training dataset. limit_num_users: [int] For debugging purposes, only return some users. seed: [int] Seed used to sample users/items.\n\nind2val, itemattr, dataloaders = load_dataloaders()\n\n2021-08-13 10:15:07,665 Download data if not in data folder..\n2021-08-13 10:15:07,666 Downloading data.npz\n2021-08-13 10:15:07,667 Downloading ind2val.json\n2021-08-13 10:15:07,667 Downloading itemattr.npz\n2021-08-13 10:15:07,668 Done downloading all files.\n2021-08-13 10:15:07,668 Load data..\n2021-08-13 10:15:31,565 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False\n2021-08-13 10:15:31,834 Loading dataset with slate size=torch.Size([2277645, 20, 25]) and uniform candidate sampling=False\n2021-08-13 10:15:31,839 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False\n2021-08-13 10:15:31,844 Loading dataset with slate size=torch.Size([113882, 20, 25]) and uniform candidate sampling=False\n2021-08-13 10:15:31,845 In train: num_users: 2277645, num_batches: 2225\n2021-08-13 10:15:31,846 In valid: num_users: 113882, num_batches: 112\n2021-08-13 10:15:31,846 In test: num_users: 113882, num_batches: 112"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "",
+    "text": "We release the FINN.no slate dataset to improve recommender systems research. The dataset includes both search and recommendation interactions between users and the platform over a 30 day period. The dataset has logged both exposures and clicks, including interactions where the user did not click on any of the items in the slate. To our knowledge there exists no such large-scale dataset, and we hope this contribution can help researchers constructing improved models and improve offline evaluation metrics.\nFor each user u and interaction step t we recorded all items in the visible slate  (up to the scroll length ), and the user’s click response . The dataset consists of 37.4 million interactions, |U| ≈ 2.3) million users and |I| ≈ 1.3 million items that belong to one of G = 290 item groups. For a detailed description of the data please see the paper.\nFINN.no is the leading marketplace in the Norwegian classifieds market and provides users with a platform to buy and sell general merchandise, cars, real estate, as well as house rentals and job offerings. For questions, email simen.eide@finn.no or file an issue."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "Install",
+    "text": "Install\npip install recsys_slates_dataset"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "How to use",
+    "text": "How to use\nTo download the generic numpy data files:\n\nfrom recsys_slates_dataset import data_helper\ndata_helper.download_data_files(data_dir=\"data\")\n\nDownload and prepare data into ready-to-use PyTorch dataloaders:\nfrom recsys_slates_dataset import dataset_torch\nind2val, itemattr, dataloaders = dataset_torch.load_dataloaders(data_dir=\"data\")"
+  },
+  {
+    "objectID": "index.html#organization",
+    "href": "index.html#organization",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "Organization",
+    "text": "Organization\nThe repository is organized as follows: - The dataset is placed in data/ and stored using git-lfs. We also provide an automatic download function in the pip package (preferred usage). - The code open sourced from the article “Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling” is found in (code_eide_et_al21/). However, we are in the process of making the data more generally available which makes the code incompatible with the current (newer) version of the data. Please use the v1.0 release of the repository for a compatible version of the code and dataset."
+  },
+  {
+    "objectID": "index.html#quickstart-dataset-open-in-colab",
+    "href": "index.html#quickstart-dataset-open-in-colab",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "Quickstart dataset ",
+    "text": "Quickstart dataset \nWe provide a quickstart Jupyter notebook that runs on Google Colab (quickstart-finn-recsys-slate-data.ipynb) which includes all necessary steps above. It gives a quick introduction to how to use the dataset."
+  },
+  {
+    "objectID": "index.html#example-training-scripts",
+    "href": "index.html#example-training-scripts",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "Example training scripts",
+    "text": "Example training scripts\nWe provide an example training jupyter notebook that implements a matrix factorization model with categorical loss that can be found in examples/. It is also runnable using Google Colab: \nThere is ongoing work in progress to build additional examples and use them as benchmarks for the dataset.\n\nDataset files\nThe dataset data.npz contains the following fields: - userId: The unique identifier of the user. - click: The items the user clicked on in each of the 20 presented slates. - click_idx: The index the clicked item was on in each of the 20 presented slates. - slate_lengths: The length of the 20 presented slates. - slate: All the items in each of the 20 presented slates. - interaction_type: The recommendation slate can be the result of a search query (1), a recommendation (2) or can be undefined (0).\nThe dataset itemattr.npz contains the categories ranging from 0 to 290. Corresponding with the 290 unique groups that the items belong to. These 290 unique groups are constructed using a combination of categorical information and the geographical location.\nThe dataset ind2val.json contains the mapping between the indices and the values of the categories (e.g. \"287\": \"JOB, Rogaland\") and interaction types (e.g. \"1\": \"search\").\n## Citations This repository accompanies the paper “Dynamic Slate Recommendation with Gated Recurrent Units and Thompson Sampling” by Simen Eide, David S. Leslie and Arnoldo Frigessi. The article is under review, and the preprint can be obtained here.\nIf you use either the code, data or paper, please consider citing the paper.\nEide, S., Leslie, D.S. & Frigessi, A. Dynamic slate recommendation with gated recurrent units and Thompson sampling. Data Min Knowl Disc (2022). https://doi.org/10.1007/s10618-022-00849-w"
+  },
+  {
+    "objectID": "index.html#todo",
+    "href": "index.html#todo",
+    "title": "FINN.no Slate Dataset for Recommender Systems",
+    "section": "Todo",
+    "text": "Todo\nThis repository is currently work in progress, and we will provide descriptions and tutorials. Suggestions and contributions to make the material more available are welcome. There are some features of the repository that we are working on:\n\nAdd more usable functions that compute relevant metrics such as F1, counterfactual metrics etc.\nThe git lfs is currently broken by removing some lines in .gitattributes that is in conflict with nbdev. The dataset is still usable using the building download functions as they use a different source. However, we should fix this. An issue is posted on nbdev."
+  },
+  {
+    "objectID": "lightning_helper.html",
+    "href": "lightning_helper.html",
+    "title": "lightning_helper",
+    "section": "",
+    "text": "source\n\nSlateDataModule\n\n SlateDataModule (data_dir='dat', batch_size=1024, num_workers=0,\n                  sample_candidate_items=0, valid_pct=0.05, test_pct=0.05,\n                  t_testsplit=5, limit_num_users=None, *args, **kwargs)\n\nA LightningDataModule wrapper around the dataloaders created in dataset_torch.\n\nsource\n\n\nCallbackPrintRecommendedCategory\n\n CallbackPrintRecommendedCategory (dm, num_recs=2, max_interactions=10,\n                                   report_interval=100)\n\nA pytorch lightning callback that prints the clicks the user did, and the top recommendations at a given interaction.\n\nsource\n\n\nHitrate\n\n Hitrate (dm, report_interval=100, num_rec=10,\n          remove_already_clicked=True)\n\nModule computing hitrate over the test dataset. NB: This assumes that recommendations does not change over time. I.e. will not work on temporal models.\n\ndm = SlateDataModule()\ndm.prepare_data()\ndm.setup()\n\nchecksum = next(iter(dm.train_dataloader()))['slate'].sum().item()\nassert checksum == 98897096275, \"Data error: Checksum of first batch is not expected value. Seed error?\"\n\n2022-02-07 15:00:59,535 Downloading data.npz\n2022-02-07 15:00:59,536 Downloading ind2val.json\n2022-02-07 15:00:59,536 Downloading itemattr.npz\n2022-02-07 15:00:59,537 Done downloading all files.\n2022-02-07 15:00:59,538 Load data..\n2022-02-07 15:00:59,538 Download data if not in data folder..\n2022-02-07 15:00:59,539 Downloading data.npz\n2022-02-07 15:00:59,539 Downloading ind2val.json\n2022-02-07 15:00:59,540 Downloading itemattr.npz\n2022-02-07 15:00:59,541 Done downloading all files.\n2022-02-07 15:00:59,541 Load data.."
+  },
+  {
+    "objectID": "CONTRIBUTING.html",
+    "href": "CONTRIBUTING.html",
+    "title": "recsys_slates_dataset",
+    "section": "",
+    "text": "We welcome all contributions such as writing wrapper for new frameworks (e.g. tensorflow), better docs and also if you have a dataset that could fit this framework.\n\n\nThis repository use the (nbdev framework)[https://github.com/fastai/nbdev/] to build and maintain the repository, a fairly quick intro can be found at (https://github.com/fastai/nbdev/)[https://github.com/fastai/nbdev/]. The main part is that one develop the code in jupyter notebooks, and that anything in the subdirectory recsys_slates_dataset is generated from these. Installation of the nbdev package is needed to generate these files: pip install nbdev or conda install -c fastai nbdev. Before anything else, please install the git hooks that run automatic scripts during each commit and merge to strip the notebooks of superfluous metadata (and avoid merge conflicts). After cloning the repository, run the following command inside it:\nnbdev_install_git_hooks\n\n\n\n\nEnsure the bug was not already reported by searching on GitHub under Issues.\nIf you’re unable to find an open issue addressing the problem, open a new one. Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.\nBe sure to add the complete error messages.\n\n\n\n\nOpen a new GitHub pull request with the patch.\nEnsure that your PR includes a test that fails without your patch, and pass with it.\nEnsure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.\n\n\n\n\n\n\nKeep each PR focused. While it’s more convenient, do not combine several unrelated fixes together. Create as many branches as needing to keep each PR focused.\nDo not mix style changes/fixes with “functional” changes. It’s very difficult to review such PRs and it most likely get rejected.\nDo not add/remove vertical whitespace. Preserve the original style of the file you edit as much as you can.\nDo not turn an already submitted PR into your development playground. If after you submitted PR, you discovered that more work is needed - close the PR, do the required work and then submit a new PR. Otherwise each of your commits requires attention from maintainers of the project.\nIf, however, you submitted a PR and received a request for changes, you should proceed with commits inside that PR, so that the maintainer can see the incremental fixes and won’t need to review the whole PR again. In the exception case where you realize it’ll take many many commits to complete the requests, then it’s probably best to close the PR, do the work and then submit it again. Use common sense where you’d choose one way over another.\n\n\n\n\n\nDocs are automatically created from the notebooks in the nbs folder."
+  },
+  {
+    "objectID": "data_helper.html",
+    "href": "data_helper.html",
+    "title": "datahelper",
+    "section": "",
+    "text": "source\n\ndownload_data_files\n\n download_data_files (data_dir:str='data', overwrite=False, progbar=True,\n                      use_int32=True)\n\nDownloads the data from google drive.\n\ndata_dir: relative path to where data is downloaded.\noverwrite: If files exist they will not be downloaded again. NB/todo: the function does not check if there is a complete download of the file.\nprogbar: simple progbar that says how much data that has been downloaded for each file.\nuse_int32: The interaction data is a very large file and is not possible to load into memory in some cases (e.g. google colab). Therefore, we recommend using the int32 data type when loading the data."
+  }
+]

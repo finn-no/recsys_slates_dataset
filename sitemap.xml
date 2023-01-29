@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://opensource.finn.no/recsys_slates_dataset/dataset_torch.html</loc>
+    <lastmod>2023-01-29T16:32:51.191Z</lastmod>
+  </url>
+  <url>
+    <loc>http://opensource.finn.no/recsys_slates_dataset/index.html</loc>
+    <lastmod>2023-01-29T16:32:53.219Z</lastmod>
+  </url>
+  <url>
+    <loc>http://opensource.finn.no/recsys_slates_dataset/lightning_helper.html</loc>
+    <lastmod>2023-01-29T16:32:53.663Z</lastmod>
+  </url>
+  <url>
+    <loc>http://opensource.finn.no/recsys_slates_dataset/CONTRIBUTING.html</loc>
+    <lastmod>2023-01-29T16:32:54.079Z</lastmod>
+  </url>
+  <url>
+    <loc>http://opensource.finn.no/recsys_slates_dataset/data_helper.html</loc>
+    <lastmod>2023-01-29T16:32:54.415Z</lastmod>
+  </url>
+</urlset>
