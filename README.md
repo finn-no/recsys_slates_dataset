@@ -101,11 +101,12 @@ categorical information and the geographical location.
 The dataset `ind2val.json` contains the mapping between the indices and
 the values of the categories (e.g. `"287": "JOB, Rogaland"`) and
 interaction types (e.g. `"1": "search"`).  
-\## Citations This repository accompanies the paper [“Dynamic Slate
+
+## Citations 
+This repository accompanies the paper [“Dynamic Slate
 Recommendation with Gated Recurrent Units and Thompson
 Sampling”](https://arxiv.org/abs/2104.15046) by Simen Eide, David S.
-Leslie and Arnoldo Frigessi. The article is under review, and the
-preprint can be obtained [here](https://arxiv.org/abs/2104.15046).
+Leslie and Arnoldo Frigessi. 
 
 If you use either the code, data or paper, please consider citing the
 paper.
